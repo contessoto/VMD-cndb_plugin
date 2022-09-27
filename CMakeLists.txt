@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 set(CMAKE_USER_MAKE_RULES_OVERRIDE "cmake/platform.cmake")
 
-project(VMD-h5mdplugin C)
+project(VMD-cndbplugin C)
 
 find_package(HDF5 REQUIRED COMPONENTS "C" "HL")
 
@@ -24,19 +24,19 @@ include_directories("${HDF5_INCLUDE_DIR}")
 include_directories("${VMD_PLUGIN_INCLUDE_DIR}")
 
 #
-# add H5MD library
+# add cndb library
 #
-add_library(h5md # SHARED
-    libh5md.c
+add_library(cndb # SHARED
+    libcndb.c
 )
 
 #
-# add H5MD plugin
+# add cndb plugin
 #
-add_library(h5mdplugin SHARED
-    h5mdplugin.c
+add_library(cndbplugin SHARED
+    cndbplugin.c
 )
-target_link_libraries(h5md
+target_link_libraries(cndb
     ${HDF5_C_LIBRARIES}
     ${HDF5_HL_LIBRARIES}
     # math library
@@ -47,15 +47,15 @@ SET (CMAKE_SHARED_LINKER_FLAGS
     "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN'" )
 
 # unset "lib" prefix
-set_target_properties(h5mdplugin PROPERTIES PREFIX "")
+set_target_properties(cndbplugin PROPERTIES PREFIX "")
 
-target_link_libraries(h5mdplugin
-    h5md
+target_link_libraries(cndbplugin
+    cndb
     ${HDF5_C_LIBRARIES}
     ${HDF5_HL_LIBRARIES}
 )
 
-install(TARGETS h5md h5mdplugin
+install(TARGETS cndb cndbplugin
   DESTINATION "${VMD_PLUGIN_PATH}/molfile"
 )
 
@@ -64,23 +64,23 @@ install(TARGETS h5md h5mdplugin
 #
 enable_testing()
 
-add_executable(h5mdtest
-    h5mdtest.c
-    h5mdplugin.c
+add_executable(cndbtest
+    cndbtest.c
+    cndbplugin.c
 )
-target_link_libraries(h5mdtest
-    h5md
+target_link_libraries(cndbtest
+    cndb
     ${HDF5_LIBRARIES}
     # math library
     m
 )
 
-add_test(h5md/particles/full_vmd_structure
-    h5mdtest h5md "${CMAKE_SOURCE_DIR}/samples/full_vmd_structure.h5"
+add_test(cndb/particles/full_vmd_structure
+    cndbtest cndb "${CMAKE_SOURCE_DIR}/samples/full_vmd_structure.h5"
 )
-add_test(h5md/particles/half_vmd_structure
-    h5mdtest h5md "${CMAKE_SOURCE_DIR}/samples/half_vmd_structure.h5"
+add_test(cndb/particles/half_vmd_structure
+    cndbtest cndb "${CMAKE_SOURCE_DIR}/samples/half_vmd_structure.h5"
 )
-add_test(h5md/particles/no_vmd_structure
-    h5mdtest h5md "${CMAKE_SOURCE_DIR}/samples/no_vmd_structure.h5"
+add_test(cndb/particles/no_vmd_structure
+    cndbtest cndb "${CMAKE_SOURCE_DIR}/samples/no_vmd_structure.h5"
 )
