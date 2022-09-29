@@ -382,7 +382,7 @@ void close_file(void* _file){
 void* open_cndb_write(const char* filename, const char *filetype, int natoms){
 	struct cndb_file* file;
 	cndb_create_file(&file, filename);
-	cndb_set_natoms(file, natoms);
+	// cndb_set_natoms(file, natoms);
 	return file;
 }
 
@@ -417,7 +417,7 @@ VMDPLUGIN_API int VMDPLUGIN_init() {
 	plugin.majorv = 1;
 	plugin.minorv = 5;
 	plugin.is_reentrant = VMDPLUGIN_THREADSAFE;
-	plugin.filename_extension = "h5";
+	plugin.filename_extension = "cndb";
 	plugin.open_file_read = open_cndb_read;
 	plugin.read_structure = read_cndb_structure_vmd_structure;
 	plugin.read_next_timestep = read_cndb_timestep;

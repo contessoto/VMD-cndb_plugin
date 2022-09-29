@@ -65,7 +65,19 @@ typedef struct cndb_group{
 	hid_t charge_dataset_id;
 	hid_t image_dataset_id;
 	hid_t id_dataset_id;
+	hid_t id_dataset_cndb;
 } cndb_group;
+
+//file handling
+// struct cndb_file_old{
+// 	hid_t file_id;
+// 	cndb_group* groups;
+// 	int ngroups;
+// 	int natoms;
+// 	int ntime;
+// 	char *last_error_message;
+// 	int current_time;	//for cndb_seek_timestep()
+// };
 
 //file handling
 struct cndb_file{
@@ -74,9 +86,13 @@ struct cndb_file{
 	int ngroups;
 	int natoms;
 	int ntime;
+	int nbeads;
+	int nframes;
+	int ntypes;
 	char *last_error_message;
 	int current_time;	//for cndb_seek_timestep()
 };
+
 
 
 //declaration of "private" functions, cannot be accessed from outside the library
@@ -101,36 +117,87 @@ int discover_all_groups(struct cndb_file* file){
 	return 0;
 }
 
+
+// //checks whether current object is a position group, then adds the dataset_id to the pos_dataset_id array in the cndb_file file
+// herr_t check_for_pos_dataset( hid_t g_id, const char* obj_name, const H5L_info_t* info, void* _file){
+// 	int status=0;
+// 	struct cndb_file* file=_file;
+
+// 	if(! strcmp(basename((char*)obj_name), "position")){
+// 		H5G_stat_t statbuf;
+// 		H5Gget_objinfo(g_id , obj_name , FALSE, &statbuf);	//check, whether the object is a group
+// 		if(statbuf.type==H5G_GROUP){
+// 			char* full_path_position_dataset=concatenate_strings((const char*) obj_name,(const char*) "/value"); //original
+// 			// char* full_path_position_dataset=concatenate_strings((const char*) obj_name,(const char*) "");
+// 			hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
+// 			printf("full_path_position_dataset %s.\n", full_path_position_dataset);
+// 			printf("pos_dataset_id - no group %d.\n", pos_dataset_id);
+// 			free(full_path_position_dataset);
+
+// 			if(pos_dataset_id>=0)
+// 				status=modify_information_about_file_content(file, dirname((char*)obj_name));
+// 				printf("Position dataset found in group %s.\n", obj_name);
+// 		}
+// 	}
+// 	return status;	//if status is 0 search for other position datasets continues. If status is negative, search is aborted.
+// }
+
+int i_counter_datasets=0;
 //checks whether current object is a position group, then adds the dataset_id to the pos_dataset_id array in the cndb_file file
 herr_t check_for_pos_dataset( hid_t g_id, const char* obj_name, const H5L_info_t* info, void* _file){
 	int status=0;
 	struct cndb_file* file=_file;
-
-	if(! strcmp(basename((char*)obj_name), "position")){
+	i_counter_datasets+=1;
+	if(! strcmp(basename((char*)obj_name), "types")){
 		H5G_stat_t statbuf;
-		H5Gget_objinfo(g_id , obj_name , FALSE, &statbuf);	//check, whether the object is a group 
-		if(statbuf.type==H5G_GROUP){
-			char* full_path_position_dataset=concatenate_strings((const char*) obj_name,(const char*) "/value");
-			hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
-			free(full_path_position_dataset);
+		H5Gget_objinfo(g_id , obj_name , FALSE, &statbuf);	//check, whether the object is a group
+		// printf("obj_name %s.\n", obj_name);
+		// printf("g_id %d.\n", g_id);
+		// printf("statbuf.type %d.\n", statbuf.type);
+		// printf("H5G_GROUP %d.\n", H5G_GROUP);
+		// // int H5G_GROUP = 1;
+		// if(statbuf.type==H5G_GROUP){
+		// 	// char* full_path_position_dataset=concatenate_strings((const char*) obj_name,(const char*) "/value"); //original
+		// 	char* full_path_position_dataset="/types"; 
+		hid_t pos_dataset_id=H5Dopen2(file->file_id, "types" ,H5P_DEFAULT);
+		// 	hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
+		// 	printf("full_path_position_dataset %s.\n", full_path_position_dataset);
+		printf("pos_dataset_id - check %d.\n", pos_dataset_id);
+		// 	printf("file_id %d.\n", file->file_id);
+		// 	// free(full_path_position_dataset);
+		// 	printf("dirname((char*)obj_name) %s.\n",dirname((char*)obj_name));
 
 			if(pos_dataset_id>=0)
 				status=modify_information_about_file_content(file, dirname((char*)obj_name));
-				printf("Position dataset found in group /%s.\n", obj_name);
+				printf("Position dataset found in group %s.\n", obj_name);
 		}
-	}
+	// }
+	// printf("status %d and i %d.\n", status,i_counter_datasets);
 	return status;	//if status is 0 search for other position datasets continues. If status is negative, search is aborted.
 }
+
 
 
 
 int modify_information_about_file_content(struct cndb_file* file, char* group_name){
 	int status=-1;
 
+	// //get pos_dataset_id-original
+	// char* full_path_position_dataset=concatenate_strings((const char*) group_name,(const char*) "/position/value");	
+	// hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
+	// printf("group_name %s.\n", group_name);
+	// printf("pos_dataset_id %d.\n", pos_dataset_id);
+	// free(full_path_position_dataset);
+
 	//get pos_dataset_id
-	char* full_path_position_dataset=concatenate_strings((const char*) group_name,(const char*) "/position/value");	
+	
+	char* full_path_position_dataset="types";
+	// printf("group_name %s.\n", group_name);
+	// printf("full_path_position_dataset %s.\n", full_path_position_dataset);
+	// printf("pos_dataset_id %d.\n", pos_dataset_id);
 	hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
-	free(full_path_position_dataset);
+	// printf("pos_dataset_id %d.\n", pos_dataset_id);
+	// free(full_path_position_dataset);
 
 	//get species_dataset_id for timeindependent species dataset (a timedependent dataset would be located under /species/value)
 	char* full_path_species_dataset=concatenate_strings((const char*) group_name,(const char*) "/species");	
@@ -157,30 +224,39 @@ int modify_information_about_file_content(struct cndb_file* file, char* group_na
 	hid_t id_dataset_id=H5Dopen2(file->file_id, full_path_id_dataset ,H5P_DEFAULT);
 	free(full_path_id_dataset);
 
-
 	if(check_compatibility(file, pos_dataset_id)==0){
+		
 		file->ngroups+=1;
 		cndb_group* groups=(cndb_group*) realloc(file->groups, sizeof(cndb_group)*(file->ngroups));	//effectively appends one entry to array
-
+		// printf("ngroups %d.\n", file->ngroups);
 		groups[file->ngroups-1].pos_dataset_id=pos_dataset_id;
 		groups[file->ngroups-1].species_dataset_id=species_dataset_id;
 		groups[file->ngroups-1].mass_dataset_id=mass_dataset_id;
 		groups[file->ngroups-1].charge_dataset_id=charge_dataset_id;
 		groups[file->ngroups-1].image_dataset_id=image_dataset_id;
 		groups[file->ngroups-1].id_dataset_id=id_dataset_id;
-
+		// printf("Groups - %d \n", pos_dataset_id);
 		/*
 		* Get dataspace handles and then query
 		* dataset rank and dimensions. Since all datasets are checked to be compatible do this only for the first dataset
 		*/
 
 		hid_t dataspace_id = H5Dget_space(pos_dataset_id);	//dataspace handle
+		printf("dataspace_id - %d \n", dataspace_id);
 		int rank_dataset      = H5Sget_simple_extent_ndims(dataspace_id);
 		hsize_t dims_out[rank_dataset];
 
 		H5Sget_simple_extent_dims(dataspace_id, dims_out, NULL);
-		file->ntime = dims_out[0];
-		file->natoms += dims_out[1];
+		// file->ntime = dims_out[0];
+		// file->natoms += dims_out[1];
+		
+		file->ntime = i_counter_datasets;
+		file->natoms = dims_out[0];
+
+		printf("dims_out - time %d and %d.\n", dims_out[0],file->ntime);
+		printf("dims_out - atoms %d and %d.\n", dims_out[0],file->natoms);
+		printf("rank_dataset %d.\n", rank_dataset);
+
 		groups[file->ngroups-1].nspacedims = dims_out[2];
 		groups[file->ngroups-1].natoms_group=dims_out[1];
 		groups[file->ngroups-1].group_path=mystrdup(group_name);
@@ -194,7 +270,6 @@ int modify_information_about_file_content(struct cndb_file* file, char* group_na
 	}
 	return status;
 }
-
 
 
 int check_compatibility(struct cndb_file* file, hid_t new_pos_dataset_id){
@@ -211,16 +286,21 @@ int check_compatibility(struct cndb_file* file, hid_t new_pos_dataset_id){
 		return -1;
 }
 
+
 // opens the file, creates the internal structure and goes to the first timestep
 // you have to use double pointers in order to be able to change a pointer in a foreing function
 int cndb_open(struct cndb_file** _file, const char *filename, int can_write){
 	struct cndb_file *file = malloc(sizeof(struct cndb_file));
 
-	if(can_write==TRUE)
+	if(can_write==TRUE){
 		file->file_id = H5Fopen(filename, H5F_ACC_RDWR, H5P_DEFAULT); //read&write access
-	else
+		printf("Can write file_id %s \n", filename);}
+	else{
 		file->file_id = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
+		printf("Can not write file_id %s \n", filename);}
 
+	printf("Filename is %s \n", filename);
+	
 	initialize_cndb_struct(file);
 	discover_all_groups(file);
 
@@ -270,13 +350,13 @@ int cndb_get_ntime(struct cndb_file* file,int* ntime){
 	return 0;
 }
 
-// get number of atoms iff this number is constant during time
+// get number of atoms if this number is constant during time
 int cndb_get_natoms(struct cndb_file* file, int* natoms){
 	*natoms=file->natoms;
 	return 0;
 }
 
-//set number of atoms iff this number is constant during time
+//set number of atoms if this number is constant during time
 int cndb_set_natoms(struct cndb_file* file, int natoms){
 	file->natoms=natoms;
 	return 0;
@@ -1291,6 +1371,15 @@ int initialize_cndb_struct(struct cndb_file* file){
 	file->natoms=0;
 	return 0;
 }
+
+// int initialize_cndb_struct(struct cndb_file* file){
+// 	file->nframes=0;
+// 	file->nbeads=0;
+// 	file->ntypes=0;
+// 	return 0;
+// }
+
+
 
 int max(int a, int b){
 	if(a>b)

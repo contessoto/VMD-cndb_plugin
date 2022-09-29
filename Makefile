@@ -6,8 +6,11 @@ VMDDIR=/usr/local/lib/vmd
 # plugins/include of the VMD installation directory.
 VMDCPPFLAGS=-I$(VMDDIR)/plugins/include 
 
-#HDF5_CC=clang #for better warnings
+#  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+
+# HDF5_CC=clang #for better warnings
 CC=HDF5_CC=$(HDF5_CC) h5cc -shlib
+# CC=HDF5_CC=$(HDF5_CC) /usr/local/bin/h5c++ -shlib
 #compiler switches http://gcc.gnu.org/onlinedocs/gcc-3.4.3/gnat_ugn_unw/Switches-for-gcc.html
 CFLAGS=-Wall -Wuninitialized -std=c99 -pedantic -fPIC
 CPPFLAGS=$(VMDCPPFLAGS)
