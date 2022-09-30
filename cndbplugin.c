@@ -265,7 +265,7 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 	status_read_segid=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/segid",(void**) &data_segid, &type_class_segid);
 	//load resid
 	printf("status_read_segid %d \n", status_read_segid);
-	// status_read_resid=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/resid",(void**) &data_resid, &type_class_resid);
+	status_read_resid=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/resid",(void**) &data_resid, &type_class_resid);
 	status_read_resid=0;
 	printf("status_read_resid %d \n", status_read_resid);
 	if(status_read_resid==0){
@@ -287,6 +287,7 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 			// strncpy(atom->type, default_type, 16*sizeof(char));	//set type for atom of species
 		else
 			strncpy(atom->type,default_type,16*sizeof(char));
+			printf("default_type %s\n", default_type);
 		if(status_read_atomicnumber==0 && status_index_species==0 &&index_of_species>=0){	//set atomicnumber
 			if(data_atomicnumber[index_of_species]<112 ){
 					atom->atomicnumber = data_atomicnumber[index_of_species]; 	
@@ -299,43 +300,60 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 			if(status_read_species>=0){
 				atom->atomicnumber = data_species[i]%112;
 			}else{
-				atom->atomicnumber = default_atomicnumber;
+				// atom->atomicnumber = default_atomicnumber; // - Original
+				atom->atomicnumber = 6; // Get Carbon as main element
+				printf("default_atomicnumber %d\n", default_atomicnumber);
 			}
 		}
 
-		// printf("atom %d, i %d, atom->type %s, default_type %s \n", atom->atomicnumber,i,atom->type,default_type);
-
+		printf("atom %d, i %d, atom->type %s, default_type %s \n", atom->atomicnumber,i,atom->type,default_type);
 
 
 		if (status_read_name==0 && status_index_species==0 && index_of_species>=0){
 			strncpy(atom->name,data_name[index_of_species],16*sizeof(char));	//set elementname for atom of species
 		}
 		else{
-			strncpy(atom->name,element_symbols[atom->atomicnumber],16*sizeof(char));
+			strncpy(atom->name,element_symbols[atom->atomicnumber],16*sizeof(char)); // - Original - H
+			// strncpy(atom->name,"C",16*sizeof(char));
+			printf("atom->name %s element_symbols[atom->atomicnumber] %s\n", atom->name, element_symbols[atom->atomicnumber]);
 		}
 
-		// printf("atom %s, i %d, atom->type %s, element_symbols %s \n", atom->name,i,atom->type,element_symbols[atom->atomicnumber]);
+		printf("atom %s, i %d, atom->type %s, element_symbols %s \n", atom->name,i,atom->type,element_symbols[atom->atomicnumber]);
 
 		if(status_read_mass==0 && status_index_species==0 && index_of_species>=0)
 			atom->mass = data_mass[i];	//set mass for atom of with id i
 		else
 			atom->mass=default_mass;
+		printf("atom->mass %f, \n", atom->mass);
 		if(status_read_radius==0 && status_index_species==0 && index_of_species>=0)	
 			atom->radius = data_radius[index_of_species];	//set radius for atom of species
 		else
 			atom->radius=default_radius;
+		printf("atom->radius %f, \n", atom->radius);
 		if(status_read_charge==0)
 			atom->charge=data_charge[i];	//set charge
 		else
 			atom->charge=default_charge;
+		printf("atom->charge %f, \n", atom->charge);
+
+
 		if(status_read_segid==0)
 			strncpy(atom->segid,data_segid[i],sizeof(8));	//set segid (segments may also consist of pure solvent or lipid)
 		else
 			strncpy(atom->segid,default_segid,sizeof(8));
-		if(status_read_resid==0)
-			atom->resid=data_resid[i];	//set resid
-		else
+		printf("atom->segid %f, \n", atom->segid);
+
+
+		if(status_read_resid==0){
+			// printf("atom->resid - if %d - i %d, data_resid[i] %d \n", atom->resid, i, data_resid[1] );
+			// atom->resid=data_resid[i];	//set resid
+			printf("atom->resid - before %d - i %d \n", atom->resid, i);
 			atom->resid=default_resid;
+			printf("atom->resid - if %d - i %d\n", atom->resid, i);
+		}else{
+			printf("atom->resid - else %d, \n", atom->resid);
+			atom->resid=default_resid;}
+		
 		if(status_read_resname==0)		
 			strncpy(atom->resname,data_resname[data_resid[i]],8*sizeof(char));	//set resname
 		else
@@ -351,7 +369,7 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 			strncpy(atom->resname,default_types,2*sizeof(char));
 
 		// printf("atom %d, i %d, atom->resname %s, element_symbols - Here %s \n", atom->resid,i,atom->resname,atom->chain);
-		printf("atom %d, i %d, atom->resname %s, default_types %s - data_chain[data_resid[i] %d\n", atom->resid,i,atom->resname,default_types,status_read_types);
+		// printf("atom %d, i %d, atom->resname %s, default_types %s - data_chain[data_resid[i] %d\n", atom->resid,i,atom->resname,default_types,status_read_types);
 	}
 
 	

@@ -1,6 +1,13 @@
 Rationale
 ---------
 
+
+ make clean && make && ./cndbtest cndb samples/traj_0.cndb
+
+ h5dump samples/full_vmd_structure.h5 | head -n 400
+
+ export CPATH="/usr/include/hdf5/serial/"
+
 This plugin enables [VMD](http://www.ks.uiuc.edu/Research/vmd>) to display
 dynamic molecular data stored in [H5MD](http://nongnu.org/h5md) files.
 

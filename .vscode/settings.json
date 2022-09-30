@@ -5,6 +5,8 @@
         "MolFilePlugin.C": "cpp",
         "unistd.h": "c",
         "libgen.h": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "typeinfo": "c",
+        "random": "c"
     }
 }
