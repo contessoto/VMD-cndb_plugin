@@ -109,37 +109,40 @@ int main(int argc, char *argv[]) {
   }
   printf("Opened file %s; structure plugin found %d atoms\n", sfilename, natoms);
 
-  
-  // if (splugin->read_structure) {
-  //   int optflags;
-  //   molfile_atom_t *atoms;
-  //   atoms = (molfile_atom_t *)malloc(natoms * sizeof(molfile_atom_t));
-  //   rc = splugin->read_structure(shandle, &optflags, atoms);
-  //   free(atoms);
-  //   if (rc) {
-  //     fprintf(stderr, "FAILED: read_structure returned %d\n", rc);
-  //     splugin->close_file_read(shandle);
-  //     return 1;
-  //   } else {
-  //     printf("Successfully read atom structure information.\n");
-  //   }
-  //   if (splugin->read_bonds) {
-  //     int nbonds, *from, *to, *bondtype, nbondtypes;
-  //     float *bondorder;
-  //     char **bondtypename;
-  //     if ((rc = splugin->read_bonds(shandle, &nbonds, &from, &to, 
-	// 			   &bondorder, &bondtype, &nbondtypes, &bondtypename))) {
-  //       fprintf(stderr, "FAILED: read_bonds returned %d\n", rc);
-  //     } else {
-  //       printf("read_bonds read %d bonds\n", nbonds);
-  //     }
-  //   } else {
-  //     printf("Structure file contains no bond information\n");
-  //   }
-  // } else {
-  //   fprintf(stderr, "FAILED: File contains no structure information!\n");
-  //   return 1;
-  // }
+  printf("Starting read structure test routine \n ... \n");
+  if (splugin->read_structure) {
+    int optflags;
+    molfile_atom_t *atoms;
+    atoms = (molfile_atom_t *)malloc(natoms * sizeof(molfile_atom_t));
+    printf("Atoms %s - NAtoms %d\n",atoms, natoms);
+    rc = splugin->read_structure(shandle, &optflags, atoms);
+    printf("Atoms %s\n",atoms);
+    free(atoms);
+    if (rc) {
+      fprintf(stderr, "FAILED: read_structure returned %d\n", rc);
+      splugin->close_file_read(shandle);
+      return 1;
+    } else {
+      printf("Successfully read atom structure information.\n");
+    }
+    // if (splugin->read_bonds) {
+    //   int nbonds, *from, *to, *bondtype, nbondtypes;
+    //   float *bondorder;
+    //   char **bondtypename;
+    //   if ((rc = splugin->read_bonds(shandle, &nbonds, &from, &to, 
+		// 		   &bondorder, &bondtype, &nbondtypes, &bondtypename))) {
+    //     fprintf(stderr, "FAILED: read_bonds returned %d\n", rc);
+    //   } else {
+    //     printf("read_bonds read %d bonds\n", nbonds);
+    //   }
+    // } else {
+    //   printf("Structure file contains no bond information\n");
+    // }
+  } 
+  else {
+    fprintf(stderr, "FAILED: File contains no structure information!\n");
+    return 1;
+  }
 
 
 

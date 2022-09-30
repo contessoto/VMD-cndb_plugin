@@ -117,6 +117,7 @@ int discover_all_groups(struct cndb_file* file){
 	return 0;
 }
 
+// Original H5
 
 // //checks whether current object is a position group, then adds the dataset_id to the pos_dataset_id array in the cndb_file file
 // herr_t check_for_pos_dataset( hid_t g_id, const char* obj_name, const H5L_info_t* info, void* _file){
@@ -142,6 +143,8 @@ int discover_all_groups(struct cndb_file* file){
 // 	return status;	//if status is 0 search for other position datasets continues. If status is negative, search is aborted.
 // }
 
+
+// CNDB
 int i_counter_datasets=0;
 //checks whether current object is a position group, then adds the dataset_id to the pos_dataset_id array in the cndb_file file
 herr_t check_for_pos_dataset( hid_t g_id, const char* obj_name, const H5L_info_t* info, void* _file){
@@ -182,14 +185,15 @@ herr_t check_for_pos_dataset( hid_t g_id, const char* obj_name, const H5L_info_t
 int modify_information_about_file_content(struct cndb_file* file, char* group_name){
 	int status=-1;
 
-	// //get pos_dataset_id-original
+	// //get pos_dataset_id - original
 	// char* full_path_position_dataset=concatenate_strings((const char*) group_name,(const char*) "/position/value");	
 	// hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
 	// printf("group_name %s.\n", group_name);
 	// printf("pos_dataset_id %d.\n", pos_dataset_id);
 	// free(full_path_position_dataset);
 
-	//get pos_dataset_id
+	//get pos_dataset_id -  CNDB
+	
 	
 	char* full_path_position_dataset="types";
 	// printf("group_name %s.\n", group_name);
@@ -197,7 +201,7 @@ int modify_information_about_file_content(struct cndb_file* file, char* group_na
 	// printf("pos_dataset_id %d.\n", pos_dataset_id);
 	hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
 	// printf("pos_dataset_id %d.\n", pos_dataset_id);
-	// free(full_path_position_dataset);
+	// // free(full_path_position_dataset);
 
 	//get species_dataset_id for timeindependent species dataset (a timedependent dataset would be located under /species/value)
 	char* full_path_species_dataset=concatenate_strings((const char*) group_name,(const char*) "/species");	
@@ -247,17 +251,17 @@ int modify_information_about_file_content(struct cndb_file* file, char* group_na
 		hsize_t dims_out[rank_dataset];
 
 		H5Sget_simple_extent_dims(dataspace_id, dims_out, NULL);
-		// file->ntime = dims_out[0];
+		// file->ntime = dims_out[0]; // H5
 		// file->natoms += dims_out[1];
 		
-		file->ntime = i_counter_datasets;
+		file->ntime = i_counter_datasets; ////  CNDB
 		file->natoms = dims_out[0];
 
 		printf("dims_out - time %d and %d.\n", dims_out[0],file->ntime);
 		printf("dims_out - atoms %d and %d.\n", dims_out[0],file->natoms);
 		printf("rank_dataset %d.\n", rank_dataset);
 
-		groups[file->ngroups-1].nspacedims = dims_out[2];
+		// groups[file->ngroups-1].nspacedims = dims_out[2];
 		groups[file->ngroups-1].natoms_group=dims_out[1];
 		groups[file->ngroups-1].group_path=mystrdup(group_name);
 		H5Sclose(dataspace_id);
@@ -844,8 +848,10 @@ int cndb_read_timeindependent_dataset_automatically(struct cndb_file* file, char
 	#endif
 	int status=-1;
 	hid_t dataset_id = H5Dopen2(file->file_id, dataset_name,H5P_DEFAULT);
+	printf("Dataset name %s \n", dataset_name);
+	printf("dataset_id %d \n", dataset_id);
 	if(dataset_id<0){
-		//printf("Dataset %s could not be opened.\n", dataset_name);
+		printf("Dataset %s could not be opened.\n", dataset_name);
 		return status;
 	}
 	/*

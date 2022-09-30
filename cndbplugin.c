@@ -54,10 +54,11 @@ static const char *element_symbols[] = {
     "Ds", "Rg"
 };
 
-const char default_name[16]="O";
-const char default_type[16]="O";
+const char default_name[16]="C";
+const char default_type[16]="C";
 const char default_resname[8]="";
 const int default_resid= 1;
+const char default_types[16]="NA";
 const char default_segid[8]= "";
 const char default_chain[2]= "";
 const char default_altloc[2]= "";
@@ -177,6 +178,8 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 	int natoms;
 	cndb_get_natoms(file, &natoms);
 
+	printf("Natoms %d \n", natoms);
+
 	//load index of species
 	int* data_index_species;
 	H5T_class_t type_class_index_species;
@@ -229,8 +232,12 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 	int status_read_resname=-1;
 	H5T_class_t type_class_resname;
 	char** data_chain;
-	int status_read_chain=-1;
+	int status_read_chain=-1; 
 	H5T_class_t type_class_chain;
+
+	char **data_types;
+	int status_read_types=-1;
+	H5T_class_t type_class_types;
 	
 	int len_data_index_species;
 	int len_data_resname;
@@ -240,31 +247,44 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 		species_check=check_consistency_species_index_of_species(file, len_data_index_species, data_species);
 	}
 	if(species_check!=0){
-		printf("NOTE: /parameters/vmd_structure/indexOfSpecies does not contain as much different species as there are species present in the different groups /particles/*/species !\n");
-		printf("Skipping index of species related data.\n");
+		// printf("NOTE: /parameters/vmd_structure/indexOfSpecies does not contain as much different species as there are species present in the different groups /particles/*/species !\n");
+		// printf("Skipping index of species related data.\n");
+		// status_read_types=cndb_read_timeindependent_dataset_automatically(file, "types",(void**) &data_types, &type_class_types);
+		// printf("status_read_types - if %d \n", status_read_types);
+		printf("...\n ...\n");
 	}else{
 		status_read_name=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/name",(void**) &data_name, &type_class_name);
+		printf("status_read_name  %d \n", status_read_name);
 		status_read_type=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/type",(void**) &data_type, &type_class_type);
 		status_read_radius=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/radius",(void**) &data_radius, &type_class_radius);
 		status_read_atomicnumber=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/atomicnumber",(void**) &data_atomicnumber, &type_class_atomicnumber);
 	}
+	// Added to read chromatin types folder
+	status_read_types=cndb_read_timeindependent_dataset_automatically(file, "types",(void**) &data_types, &type_class_types);
+	printf("status_read_types - out else %d \n", status_read_types);
 	status_read_segid=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/segid",(void**) &data_segid, &type_class_segid);
 	//load resid
-	status_read_resid=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/resid",(void**) &data_resid, &type_class_resid);
+	printf("status_read_segid %d \n", status_read_segid);
+	// status_read_resid=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/resid",(void**) &data_resid, &type_class_resid);
+	status_read_resid=0;
+	printf("status_read_resid %d \n", status_read_resid);
 	if(status_read_resid==0){
 		status_read_resname=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/resname",(void**) &data_resname, &type_class_resname);
 		status_read_chain=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/chain",(void**) &data_chain, &type_class_chain);
-		cndb_get_length_of_one_dimensional_dataset(file,"/parameters/vmd_structure/resname",&len_data_resname);	
+		cndb_get_length_of_one_dimensional_dataset(file,"types",&len_data_resname);
+		printf("len_data_resname %d \n", len_data_resname);
 	}
 	//give data to VMD
 	for (int i = 0; i < natoms; i++) {
 		atom = atoms + i;
+		// printf("atom %s, i %d \n", atoms,i);
 		//set species related properties
 		int index_of_species=-1;
 		if(status_index_species==0 && status_read_species>=0)
 			index_of_species=find_index_of_species(data_index_species,data_species[i],len_data_index_species);
 		if(status_read_type==0 && status_index_species==0 &&index_of_species>=0)
 			strncpy(atom->type, data_type[index_of_species], 16*sizeof(char));	//set type for atom of species
+			// strncpy(atom->type, default_type, 16*sizeof(char));	//set type for atom of species
 		else
 			strncpy(atom->type,default_type,16*sizeof(char));
 		if(status_read_atomicnumber==0 && status_index_species==0 &&index_of_species>=0){	//set atomicnumber
@@ -282,12 +302,20 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 				atom->atomicnumber = default_atomicnumber;
 			}
 		}
+
+		// printf("atom %d, i %d, atom->type %s, default_type %s \n", atom->atomicnumber,i,atom->type,default_type);
+
+
+
 		if (status_read_name==0 && status_index_species==0 && index_of_species>=0){
 			strncpy(atom->name,data_name[index_of_species],16*sizeof(char));	//set elementname for atom of species
 		}
 		else{
 			strncpy(atom->name,element_symbols[atom->atomicnumber],16*sizeof(char));
 		}
+
+		// printf("atom %s, i %d, atom->type %s, element_symbols %s \n", atom->name,i,atom->type,element_symbols[atom->atomicnumber]);
+
 		if(status_read_mass==0 && status_index_species==0 && index_of_species>=0)
 			atom->mass = data_mass[i];	//set mass for atom of with id i
 		else
@@ -316,7 +344,19 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 			strncpy(atom->chain,data_chain[data_resid[i]],2*sizeof(char));	//set chain
 		else
 			strncpy(atom->chain,default_chain,2*sizeof(char));
+
+		if(status_read_types==0)
+			strncpy(atom->resname,data_types[i],2*sizeof(char));	//set Types
+		else
+			strncpy(atom->resname,default_types,2*sizeof(char));
+
+		// printf("atom %d, i %d, atom->resname %s, element_symbols - Here %s \n", atom->resid,i,atom->resname,atom->chain);
+		printf("atom %d, i %d, atom->resname %s, default_types %s - data_chain[data_resid[i] %d\n", atom->resid,i,atom->resname,default_types,status_read_types);
 	}
+
+	
+
+
 	//After assignment free used resources
 	if(status_index_species==0)
 		cndb_free_timeindependent_dataset_automatically(type_class_index_species,data_index_species, 0);
