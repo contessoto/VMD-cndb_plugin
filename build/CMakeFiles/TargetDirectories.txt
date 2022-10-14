@@ -1,0 +1,10 @@
+/mnt/d/Dev/VMD-cndb_plugin/build/CMakeFiles/install/strip.dir
+/mnt/d/Dev/VMD-cndb_plugin/build/CMakeFiles/install.dir
+/mnt/d/Dev/VMD-cndb_plugin/build/CMakeFiles/list_install_components.dir
+/mnt/d/Dev/VMD-cndb_plugin/build/CMakeFiles/cndb.dir
+/mnt/d/Dev/VMD-cndb_plugin/build/CMakeFiles/cndbtest.dir
+/mnt/d/Dev/VMD-cndb_plugin/build/CMakeFiles/install/local.dir
+/mnt/d/Dev/VMD-cndb_plugin/build/CMakeFiles/test.dir
+/mnt/d/Dev/VMD-cndb_plugin/build/CMakeFiles/edit_cache.dir
+/mnt/d/Dev/VMD-cndb_plugin/build/CMakeFiles/cndbplugin.dir
+/mnt/d/Dev/VMD-cndb_plugin/build/CMakeFiles/rebuild_cache.dir

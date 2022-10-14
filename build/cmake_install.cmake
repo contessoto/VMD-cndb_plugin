@@ -54,7 +54,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
      NOT IS_SYMLINK "$ENV{DESTDIR}/plugins/LINUXAMD64/molfile/cndbplugin.so")
     file(RPATH_CHECK
          FILE "$ENV{DESTDIR}/plugins/LINUXAMD64/molfile/cndbplugin.so"
-         RPATH "/home/vinicius/anaconda3/lib")
+         RPATH "/home/vinicius/anaconda3/x86_64-conda_cos6-linux-gnu/sysroot/usr/lib")
   endif()
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
    "/plugins/LINUXAMD64/molfile/cndbplugin.so")
@@ -69,8 +69,8 @@ file(INSTALL DESTINATION "/plugins/LINUXAMD64/molfile" TYPE SHARED_LIBRARY FILES
      NOT IS_SYMLINK "$ENV{DESTDIR}/plugins/LINUXAMD64/molfile/cndbplugin.so")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}/plugins/LINUXAMD64/molfile/cndbplugin.so"
-         OLD_RPATH "/home/vinicius/anaconda3/lib:"
-         NEW_RPATH "/home/vinicius/anaconda3/lib")
+         OLD_RPATH "/home/vinicius/anaconda3/x86_64-conda_cos6-linux-gnu/sysroot/usr/lib:"
+         NEW_RPATH "/home/vinicius/anaconda3/x86_64-conda_cos6-linux-gnu/sysroot/usr/lib")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}/plugins/LINUXAMD64/molfile/cndbplugin.so")
     endif()

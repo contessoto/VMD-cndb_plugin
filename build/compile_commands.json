@@ -1,22 +1,22 @@
 [
 {
   "directory": "/mnt/d/Dev/VMD-cndb_plugin/build",
-  "command": "/usr/bin/gcc  -I/home/vinicius/anaconda3/include -I/plugins/include  -Wall -std=c99 -pedantic -fPIC -g   -o CMakeFiles/cndb.dir/libcndb.c.o   -c /mnt/d/Dev/VMD-cndb_plugin/libcndb.c",
+  "command": "/usr/bin/gcc  -I/home/vinicius/anaconda3/include -I/plugins/include  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home/vinicius/anaconda3/include -Wall -std=c99 -pedantic -fPIC -g   -o CMakeFiles/cndb.dir/libcndb.c.o   -c /mnt/d/Dev/VMD-cndb_plugin/libcndb.c",
   "file": "/mnt/d/Dev/VMD-cndb_plugin/libcndb.c"
 },
 {
   "directory": "/mnt/d/Dev/VMD-cndb_plugin/build",
-  "command": "/usr/bin/gcc  -I/home/vinicius/anaconda3/include -I/plugins/include  -Wall -std=c99 -pedantic -fPIC -g   -o CMakeFiles/cndbtest.dir/cndbtest.c.o   -c /mnt/d/Dev/VMD-cndb_plugin/cndbtest.c",
+  "command": "/usr/bin/gcc  -I/home/vinicius/anaconda3/include -I/plugins/include  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home/vinicius/anaconda3/include -Wall -std=c99 -pedantic -fPIC -g   -o CMakeFiles/cndbtest.dir/cndbtest.c.o   -c /mnt/d/Dev/VMD-cndb_plugin/cndbtest.c",
   "file": "/mnt/d/Dev/VMD-cndb_plugin/cndbtest.c"
 },
 {
   "directory": "/mnt/d/Dev/VMD-cndb_plugin/build",
-  "command": "/usr/bin/gcc  -I/home/vinicius/anaconda3/include -I/plugins/include  -Wall -std=c99 -pedantic -fPIC -g   -o CMakeFiles/cndbtest.dir/cndbplugin.c.o   -c /mnt/d/Dev/VMD-cndb_plugin/cndbplugin.c",
+  "command": "/usr/bin/gcc  -I/home/vinicius/anaconda3/include -I/plugins/include  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home/vinicius/anaconda3/include -Wall -std=c99 -pedantic -fPIC -g   -o CMakeFiles/cndbtest.dir/cndbplugin.c.o   -c /mnt/d/Dev/VMD-cndb_plugin/cndbplugin.c",
   "file": "/mnt/d/Dev/VMD-cndb_plugin/cndbplugin.c"
 },
 {
   "directory": "/mnt/d/Dev/VMD-cndb_plugin/build",
-  "command": "/usr/bin/gcc -Dcndbplugin_EXPORTS -I/home/vinicius/anaconda3/include -I/plugins/include  -Wall -std=c99 -pedantic -fPIC -g -fPIC   -o CMakeFiles/cndbplugin.dir/cndbplugin.c.o   -c /mnt/d/Dev/VMD-cndb_plugin/cndbplugin.c",
+  "command": "/usr/bin/gcc -Dcndbplugin_EXPORTS -I/home/vinicius/anaconda3/include -I/plugins/include  -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /home/vinicius/anaconda3/include -Wall -std=c99 -pedantic -fPIC -g -fPIC   -o CMakeFiles/cndbplugin.dir/cndbplugin.c.o   -c /mnt/d/Dev/VMD-cndb_plugin/cndbplugin.c",
   "file": "/mnt/d/Dev/VMD-cndb_plugin/cndbplugin.c"
 }
 ]

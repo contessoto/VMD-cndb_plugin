@@ -56,11 +56,11 @@ static const char *element_symbols[] = {
 
 const char default_name[16]="C";
 const char default_type[16]="C";
-const char default_resname[8]="";
+const char default_resname[8]="GLY";
 const int default_resid= 1;
-const char default_types[16]="NA";
+const char default_types[16]="Chr";
 const char default_segid[8]= "";
-const char default_chain[2]= "";
+const char default_chain[2]= "A";
 const char default_altloc[2]= "";
 const char default_insertion[2]= "";
 const float default_occupancy= 1.0;
@@ -84,7 +84,16 @@ static int read_cndb_timestep(void *_file, int natoms, molfile_timestep_t *ts) {
 	struct cndb_file* file=_file;
 	int status=MOLFILE_SUCCESS;
 	int current_time;
+
+
+
 	cndb_get_current_time(file,&current_time);
+
+	printf("current_time %d \n", current_time);
+
+
+
+
 	int ntime;
 	cndb_get_ntime(file,&ntime);
 	if(current_time>=ntime)
@@ -106,7 +115,13 @@ static int read_cndb_timestep(void *_file, int natoms, molfile_timestep_t *ts) {
 		ts->velocities = NULL;
 		ts->physical_time = 0.0;
 		//read coords
+		printf("current_time %d \n", current_time);
+
+
 		cndb_get_timestep(file, ts->coords);
+
+		
+		printf("ts->coords %f \n", ts->coords);
 		cndb_unfold_positions(file, ts->coords);
 		cndb_sort_data_according_to_id_datasets(file, ts->coords);
 
@@ -287,7 +302,7 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 			// strncpy(atom->type, default_type, 16*sizeof(char));	//set type for atom of species
 		else
 			strncpy(atom->type,default_type,16*sizeof(char));
-			printf("default_type %s\n", default_type);
+			// printf("default_type %s\n", default_type);
 		if(status_read_atomicnumber==0 && status_index_species==0 &&index_of_species>=0){	//set atomicnumber
 			if(data_atomicnumber[index_of_species]<112 ){
 					atom->atomicnumber = data_atomicnumber[index_of_species]; 	
@@ -302,11 +317,11 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 			}else{
 				// atom->atomicnumber = default_atomicnumber; // - Original
 				atom->atomicnumber = 6; // Get Carbon as main element
-				printf("default_atomicnumber %d\n", default_atomicnumber);
+				// printf("default_atomicnumber %d\n", default_atomicnumber);
 			}
 		}
 
-		printf("atom %d, i %d, atom->type %s, default_type %s \n", atom->atomicnumber,i,atom->type,default_type);
+		// printf("atom %d, i %d, atom->type %s, default_type %s \n", atom->atomicnumber,i,atom->type,default_type);
 
 
 		if (status_read_name==0 && status_index_species==0 && index_of_species>=0){
@@ -315,43 +330,42 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 		else{
 			strncpy(atom->name,element_symbols[atom->atomicnumber],16*sizeof(char)); // - Original - H
 			// strncpy(atom->name,"C",16*sizeof(char));
-			printf("atom->name %s element_symbols[atom->atomicnumber] %s\n", atom->name, element_symbols[atom->atomicnumber]);
+			// printf("atom->name %s element_symbols[atom->atomicnumber] %s\n", atom->name, element_symbols[atom->atomicnumber]);
 		}
 
-		printf("atom %s, i %d, atom->type %s, element_symbols %s \n", atom->name,i,atom->type,element_symbols[atom->atomicnumber]);
+		// printf("atom %s, i %d, atom->type %s, element_symbols %s \n", atom->name,i,atom->type,element_symbols[atom->atomicnumber]);
 
 		if(status_read_mass==0 && status_index_species==0 && index_of_species>=0)
 			atom->mass = data_mass[i];	//set mass for atom of with id i
 		else
 			atom->mass=default_mass;
-		printf("atom->mass %f, \n", atom->mass);
+		// printf("atom->mass %f, \n", atom->mass);
 		if(status_read_radius==0 && status_index_species==0 && index_of_species>=0)	
 			atom->radius = data_radius[index_of_species];	//set radius for atom of species
 		else
 			atom->radius=default_radius;
-		printf("atom->radius %f, \n", atom->radius);
+		// printf("atom->radius %f, \n", atom->radius);
 		if(status_read_charge==0)
 			atom->charge=data_charge[i];	//set charge
 		else
 			atom->charge=default_charge;
-		printf("atom->charge %f, \n", atom->charge);
+		// printf("atom->charge %f, \n", atom->charge);
 
 
 		if(status_read_segid==0)
 			strncpy(atom->segid,data_segid[i],sizeof(8));	//set segid (segments may also consist of pure solvent or lipid)
 		else
 			strncpy(atom->segid,default_segid,sizeof(8));
-		printf("atom->segid %f, \n", atom->segid);
+		// printf("atom->segid %f, \n", atom->segid);
 
 
 		if(status_read_resid==0){
 			// printf("atom->resid - if %d - i %d, data_resid[i] %d \n", atom->resid, i, data_resid[1] );
 			// atom->resid=data_resid[i];	//set resid
-			printf("atom->resid - before %d - i %d \n", atom->resid, i);
+			// printf("atom->resid - before %d - i %d \n", atom->resid, i);
 			atom->resid=default_resid;
-			printf("atom->resid - if %d - i %d\n", atom->resid, i);
+			// printf("atom->resid - if %d - i %d - default_resid %d\n", atom->resid, i, default_resid);
 		}else{
-			printf("atom->resid - else %d, \n", atom->resid);
 			atom->resid=default_resid;}
 		
 		if(status_read_resname==0)		
@@ -364,16 +378,15 @@ int read_cndb_structure_vmd_structure(void *_file, int *optflags,molfile_atom_t 
 			strncpy(atom->chain,default_chain,2*sizeof(char));
 
 		if(status_read_types==0)
-			strncpy(atom->resname,data_types[i],2*sizeof(char));	//set Types
+			// strncpy(atom->resname,data_types[i],2*sizeof(char));	//set Types
+			strncpy(atom->resname,default_types,3*sizeof(char));
 		else
-			strncpy(atom->resname,default_types,2*sizeof(char));
+			strncpy(atom->resname,default_types,3*sizeof(char));
 
+		// printf("atom->resname %s, \n", atom->resname);
 		// printf("atom %d, i %d, atom->resname %s, element_symbols - Here %s \n", atom->resid,i,atom->resname,atom->chain);
 		// printf("atom %d, i %d, atom->resname %s, default_types %s - data_chain[data_resid[i] %d\n", atom->resid,i,atom->resname,default_types,status_read_types);
 	}
-
-	
-
 
 	//After assignment free used resources
 	if(status_index_species==0)
@@ -415,17 +428,32 @@ static int cndb_get_bonds(void *_file, int *nbonds, int **from, int **to, float 
 	H5T_class_t type_class_bond_from;
 	H5T_class_t type_class_bond_to;
 	
-	cndb_get_length_of_one_dimensional_dataset(file,"/parameters/vmd_structure/bond_from",nbonds); //save number of bonds to *nbonds
+	// cndb_get_length_of_one_dimensional_dataset(file,"/parameters/vmd_structure/bond_from",nbonds); //save number of bonds to *nbonds
 	
+	cndb_get_length_of_one_dimensional_dataset(file,"types",nbonds);
+	*nbonds = *nbonds -1;
+	printf("nbonds %d \n",*nbonds);
 	
-	int status_read_bond_from=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/bond_from",(void**) from, &type_class_bond_from);
-	int status_read_bond_to=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/bond_to",(void**) to, &type_class_bond_to);
+
+
+
+	// Tem que fazer uma lista de bonds aqui, dois vetores de 1 até N-1 e outro de 2 até N
 	
+	// int status_read_bond_from=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/bond_from",(void**) from, &type_class_bond_from);
+	// int status_read_bond_to=cndb_read_timeindependent_dataset_automatically(file, "/parameters/vmd_structure/bond_to",(void**) to, &type_class_bond_to);
+	
+
+	int status_read_bond_from=0;
+	int status_read_bond_to=0;
+	
+
 	if(status_read_bond_from==0 && status_read_bond_to ==0){ 
 		printf("read %d bonds \n",*nbonds);
   		return MOLFILE_SUCCESS;
 	}else{
-		return MOLFILE_ERROR;		
+		printf("read %d bonds \n",*nbonds);
+		return MOLFILE_SUCCESS;
+		// return MOLFILE_ERROR;		
 	}
 }
 

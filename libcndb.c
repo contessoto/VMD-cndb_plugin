@@ -548,16 +548,35 @@ int cndb_get_timestep(struct cndb_file* file, float *coords){
 	for(int i=0; i<file->ngroups; i++){//go through all groups
 		/////////////////
 		//read in positions of group
-		float data_out_local_pos[file->groups[i].natoms_group*file->groups[i].nspacedims];
-		hid_t dataspace_pos_id=H5Dget_space(file->groups[i].pos_dataset_id); //Define dataset dataspace (for pos_dataset) in file.
+		i=i+1;
+		// printf("i %d - file->ngroups %d \n", i,file->ngroups);
+		// printf("i %d - here\n", i);
+		// printf("i %d - file->groups[i].natoms_group %d \n", i,file->groups[i].natoms_group);
+		// float data_out_local_pos[file->groups[i].natoms_group*file->groups[i].nspacedims];
 
+		// groups[file->ngroups-1].pos_dataset_id=pos_dataset_id;
+
+		float data_out_local_pos[file->natoms*3];
+		hid_t dataspace_pos_id = file->current_time;
+		// hid_t dataspace_pos_id=H5Dget_space(file->groups[i-1].pos_dataset_id); //Define dataset dataspace (for pos_dataset) in file.
+ 		// int dataspace_pos_id = 0;
+		printf("i %d - dataspace_pos_id %d \n", i,dataspace_pos_id);
+		
 		/* 
 		* Define hyperslab in the dataset. 
 		*/
+
+		// printf("i %d - here 1 %d \n", i,file->groups[i].natoms_group);
+		// printf("i %d - dataspace_pos_id %d \n", i,dataspace_pos_id);
+		// // dataspace_pos_id=0;
+		// printf("i %d - dataspace_pos_id 0  %d \n", i,dataspace_pos_id);
 		if(dataspace_pos_id<0)
 			continue;
 
-		int rank_dataset      = file->groups[i].nspacedims;
+		
+
+		int rank_dataset      = file->groups[i-1].nspacedims;
+		
 		hsize_t dataset_slab_offset[rank_dataset];
 		dataset_slab_offset[0] = file->current_time;
 		dataset_slab_offset[1] = 0;
@@ -565,8 +584,14 @@ int cndb_get_timestep(struct cndb_file* file, float *coords){
 
 		hsize_t dataset_slab_count[rank_dataset];
 		dataset_slab_count[0] = 1;
-		dataset_slab_count[1] = file->groups[i].natoms_group;
-		dataset_slab_count[2] = file->groups[i].nspacedims;
+		dataset_slab_count[1] = file->natoms;
+		// dataset_slab_count[2] = file->groups[i-1].nspacedims;
+		dataset_slab_count[2] = 3;
+		// printf("i %d - file->groups[i-1].natoms_group %d \n", i,file->groups[3].natoms_group);
+		// printf("i %d - natoms %d \n", i,file->natoms);
+		printf("i %d - dataset_slab_count[1] %d \n", i,dataset_slab_count[1]);
+		printf("i %d - dataset_slab_count[2] %d \n", i,dataset_slab_count[2]);
+
 		H5Sselect_hyperslab(dataspace_pos_id, H5S_SELECT_SET, dataset_slab_offset, NULL, dataset_slab_count, NULL);
 
 		/*
@@ -574,8 +599,9 @@ int cndb_get_timestep(struct cndb_file* file, float *coords){
 		*/
 		int rank=1; //linear data representation
 		hsize_t dimsm[rank];
-		dimsm[0]=file->natoms* file->groups[i].nspacedims;
-
+		// dimsm[0]=file->natoms* file->groups[i].nspacedims;
+		dimsm[0]=file->natoms*dataset_slab_count[2];
+		
 		hid_t memspace_id = H5Screate_simple(rank,dimsm,NULL);
 
 		/* 
@@ -584,22 +610,36 @@ int cndb_get_timestep(struct cndb_file* file, float *coords){
 		hsize_t offset_out[rank];
 		hsize_t count_out[rank];
 		offset_out[0]=0;
-		count_out[0]=file->groups[i].natoms_group*file->groups[i].nspacedims;	
+		count_out[0]=file->natoms*dataset_slab_count[2];	
 		H5Sselect_hyperslab(memspace_id, H5S_SELECT_SET, offset_out, NULL, count_out, NULL);
-
 
 		/*
 		* Read data from hyperslab in the file into the hyperslab in memory
 		*/
 		hid_t wanted_memory_datatype = H5T_NATIVE_FLOAT;
-		H5Dread (file->groups[i].pos_dataset_id, wanted_memory_datatype, memspace_id, dataspace_pos_id, H5P_DEFAULT, data_out_local_pos); 
+
+
+
+//////// PARADO AQUU
+/////// ENTENDER O DATA OUT LOCAL - PASSANDO ZERO E TALVEZ DEVERIAS PASSAR AS POSICOES, VER A FUNCAO CNDB UNFOLD POSITIONS - TALVEZ ESSA FUNCAO UNFOL PEGA AS POSICOES
+
+
+
+		
+		printf("i %d - data_out_local_pos %f \n", i,data_out_local_pos[100]);
+
+
+
+
+		H5Dread (file->groups[i-1].pos_dataset_id, wanted_memory_datatype, memspace_id, dataspace_pos_id, H5P_DEFAULT, data_out_local_pos); 
 		H5Sclose(memspace_id); //close resources
 		H5Sclose(dataspace_pos_id);
 
 		//memcpy to data_out
-		memcpy(&(coords[3*previous_atoms]), data_out_local_pos,sizeof(float)*3*file->groups[i].natoms_group);
+		memcpy(&(coords[3*previous_atoms]), data_out_local_pos,sizeof(float)*dataset_slab_count[2]*file->natoms);
 		
-		previous_atoms+=file->groups[i].natoms_group;
+		previous_atoms+=file->natoms;
+		printf("i %d - previous_atoms %d \n", i,previous_atoms);
 
 	}
 	#if defined DEBUG
@@ -838,7 +878,6 @@ int cndb_get_box_information(struct cndb_file* file, float* out_box_information)
 	out_box_information[5]=box.gamma;
 	return status;
 }
-
 
 
 //read timeindependent dataset automatically

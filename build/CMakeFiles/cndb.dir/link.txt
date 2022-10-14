@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcndb.a  CMakeFiles/cndb.dir/libcndb.c.o
+/usr/bin/ranlib libcndb.a
