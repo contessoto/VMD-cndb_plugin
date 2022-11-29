@@ -109,6 +109,11 @@ int main(int argc, char *argv[]) {
   }
   printf("Opened file %s; structure plugin found %d atoms\n", sfilename, natoms);
 
+
+
+ // part 2
+
+
   printf("Starting read structure test routine \n ... \n");
   if (splugin->read_structure) {
     int optflags;
@@ -145,45 +150,45 @@ int main(int argc, char *argv[]) {
   }
 
 
-  /* Check whether we use one plugin for both structure and coords */
-  if (splugin != cplugin) {
-    int cnatoms;
+  // /* Check whether we use one plugin for both structure and coords */
+  // if (splugin != cplugin) {
+  //   int cnatoms;
 
-    splugin->close_file_read(shandle);
-    chandle = cplugin->open_file_read(cfilename, cfiletype, &cnatoms);
-    printf("Opened coordinates file %s\n", cfilename);
-    if (cnatoms != MOLFILE_NUMATOMS_UNKNOWN && cnatoms != natoms) {
-      fprintf(stderr, "FAILED: Different number of atoms in structure file (%d) than in coordinates file (%d)!",
-	      natoms, cnatoms);
-      cplugin->close_file_read(chandle);
-      exit(1);
-    }
-  } else {
-    chandle = shandle;
-  }
+  //   splugin->close_file_read(shandle);
+  //   chandle = cplugin->open_file_read(cfilename, cfiletype, &cnatoms);
+  //   printf("Opened coordinates file %s\n", cfilename);
+  //   if (cnatoms != MOLFILE_NUMATOMS_UNKNOWN && cnatoms != natoms) {
+  //     fprintf(stderr, "FAILED: Different number of atoms in structure file (%d) than in coordinates file (%d)!",
+	//       natoms, cnatoms);
+  //     cplugin->close_file_read(chandle);
+  //     exit(1);
+  //   }
+  // } else {
+  //   chandle = shandle;
+  // }
 
-  /* Read coordinates */
-  if (cplugin->read_next_timestep) {
-    int nsteps = 0;
+  // /* Read coordinates */
+  // if (cplugin->read_next_timestep) {
+  //   int nsteps = 0;
 
-    timestep.velocities = NULL;
-    timestep.coords = (float *)malloc(3*natoms*sizeof(float));
-    while ((rc = cplugin->read_next_timestep(chandle, natoms, &timestep))
-	   == MOLFILE_SUCCESS)
-      nsteps++;
-    free(timestep.coords);
-    if (rc != MOLFILE_EOF) {
-      fprintf(stderr, "FAILED: read_next_timestep returned %d\n", rc);
-    } else {
-      printf("Successfully read %d timesteps\n", nsteps);
-    }
-  }
+  //   timestep.velocities = NULL;
+  //   timestep.coords = (float *)malloc(3*natoms*sizeof(float));
+  //   while ((rc = cplugin->read_next_timestep(chandle, natoms, &timestep))
+	//    == MOLFILE_SUCCESS)
+  //     nsteps++;
+  //   free(timestep.coords);
+  //   if (rc != MOLFILE_EOF) {
+  //     fprintf(stderr, "FAILED: read_next_timestep returned %d\n", rc);
+  //   } else {
+  //     printf("Successfully read %d timesteps\n", nsteps);
+  //   }
+  // }
 
-  /* Close plugin(s) */
-  cplugin->close_file_read(chandle); 
+  // /* Close plugin(s) */
+  // cplugin->close_file_read(chandle); 
 
-  vmdplugin_fini();
-  printf("Tests finished.\n");
-  return 0;
+  // vmdplugin_fini();
+  // printf("Tests finished.\n");
+  // return 0;
 }
 

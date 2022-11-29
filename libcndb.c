@@ -66,6 +66,7 @@ typedef struct cndb_group{
 	hid_t image_dataset_id;
 	hid_t id_dataset_id;
 	hid_t id_dataset_cndb;
+	hid_t id_time;
 } cndb_group;
 
 //file handling
@@ -143,38 +144,52 @@ int discover_all_groups(struct cndb_file* file){
 // 	return status;	//if status is 0 search for other position datasets continues. If status is negative, search is aborted.
 // }
 
-
+// printf("HERE1\n");
 // CNDB
+
 int i_counter_datasets=0;
+// printf("HERE1\n");
 //checks whether current object is a position group, then adds the dataset_id to the pos_dataset_id array in the cndb_file file
 herr_t check_for_pos_dataset( hid_t g_id, const char* obj_name, const H5L_info_t* info, void* _file){
 	int status=0;
 	struct cndb_file* file=_file;
 	i_counter_datasets+=1;
-	if(! strcmp(basename((char*)obj_name), "types")){
+	if(! strcmp(basename((char*)obj_name), "C1")){
+		printf("basename((char*)obj_name %s\n",obj_name);
 		H5G_stat_t statbuf;
 		H5Gget_objinfo(g_id , obj_name , FALSE, &statbuf);	//check, whether the object is a group
 		// printf("obj_name %s.\n", obj_name);
 		// printf("g_id %d.\n", g_id);
 		// printf("statbuf.type %d.\n", statbuf.type);
 		// printf("H5G_GROUP %d.\n", H5G_GROUP);
-		// // int H5G_GROUP = 1;
-		// if(statbuf.type==H5G_GROUP){
-		// 	// char* full_path_position_dataset=concatenate_strings((const char*) obj_name,(const char*) "/value"); //original
-		// 	char* full_path_position_dataset="/types"; 
-		hid_t pos_dataset_id=H5Dopen2(file->file_id, "types" ,H5P_DEFAULT);
+		if(statbuf.type==H5G_GROUP){
+			// char* full_path_position_dataset=concatenate_strings((const char*) obj_name,(const char*) "/value"); //original
+			char* full_path_position_dataset=concatenate_strings((const char*) obj_name,(const char*) "/spatial_position/1");
+			hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
+			printf("full_path_position_dataset %s.\n", full_path_position_dataset);
+			printf("pos_dataset_id - no group %d.\n", pos_dataset_id);
+			free(full_path_position_dataset);
+
+			if(pos_dataset_id>=0){
+				// status=modify_information_about_file_content(file, dirname((char*)obj_name)); //Old
+				status=modify_information_about_file_content(file, obj_name); // take name instead of dir
+				printf("Position dataset found in group %s.\n", obj_name);}
+		}
+
+
+		// hid_t pos_dataset_id=H5Dopen2(file->file_id, "types" ,H5P_DEFAULT);
 		// 	hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
 		// 	printf("full_path_position_dataset %s.\n", full_path_position_dataset);
-		printf("pos_dataset_id - check %d.\n", pos_dataset_id);
+		// printf("pos_dataset_id - check %d.\n", pos_dataset_id);
 		// 	printf("file_id %d.\n", file->file_id);
 		// 	// free(full_path_position_dataset);
 		// 	printf("dirname((char*)obj_name) %s.\n",dirname((char*)obj_name));
 
-			if(pos_dataset_id>=0)
-				status=modify_information_about_file_content(file, dirname((char*)obj_name));
-				printf("Position dataset found in group %s.\n", obj_name);
-		}
-	// }
+		// 	if(pos_dataset_id>=0)
+		// 		status=modify_information_about_file_content(file, dirname((char*)obj_name));
+		// 		printf("Position dataset found in group %s.\n", obj_name);
+		// }
+	}
 	// printf("status %d and i %d.\n", status,i_counter_datasets);
 	return status;	//if status is 0 search for other position datasets continues. If status is negative, search is aborted.
 }
@@ -186,20 +201,20 @@ int modify_information_about_file_content(struct cndb_file* file, char* group_na
 	int status=-1;
 
 	// //get pos_dataset_id - original
-	// char* full_path_position_dataset=concatenate_strings((const char*) group_name,(const char*) "/position/value");	
-	// hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
-	// printf("group_name %s.\n", group_name);
-	// printf("pos_dataset_id %d.\n", pos_dataset_id);
-	// free(full_path_position_dataset);
+	char* full_path_position_dataset=concatenate_strings((const char*) group_name,(const char*) "/spatial_position/1");	
+	hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
+	printf("group_name %s.\n", group_name);
+	printf("pos_dataset_id %d.\n", pos_dataset_id);
+	free(full_path_position_dataset);
 
 	//get pos_dataset_id -  CNDB
 	
 	
-	char* full_path_position_dataset="types";
+	// char* full_path_position_dataset="types";
 	// printf("group_name %s.\n", group_name);
 	// printf("full_path_position_dataset %s.\n", full_path_position_dataset);
 	// printf("pos_dataset_id %d.\n", pos_dataset_id);
-	hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
+	// hid_t pos_dataset_id=H5Dopen2(file->file_id, full_path_position_dataset ,H5P_DEFAULT);
 	// printf("pos_dataset_id %d.\n", pos_dataset_id);
 	// // free(full_path_position_dataset);
 
@@ -224,27 +239,39 @@ int modify_information_about_file_content(struct cndb_file* file, char* group_na
 	free(full_path_image_dataset);
 
 	//get id_dataset_id
-	char* full_path_id_dataset=concatenate_strings((const char*) group_name,(const char*) "/id/value");
+	char* full_path_id_dataset=concatenate_strings((const char*) group_name,(const char*) "/time");
 	hid_t id_dataset_id=H5Dopen2(file->file_id, full_path_id_dataset ,H5P_DEFAULT);
 	free(full_path_id_dataset);
+
+
+	//get id_time
+	char* full_path_id_time=concatenate_strings((const char*) group_name,(const char*) "/time");
+	hid_t id_time=H5Dopen2(file->file_id, full_path_id_time ,H5P_DEFAULT);
+	printf("full_path_id_time %s.\n", full_path_id_time);
+	printf("id_time %d.\n", id_time);
+	free(full_path_id_time);
+
 
 	if(check_compatibility(file, pos_dataset_id)==0){
 		
 		file->ngroups+=1;
 		cndb_group* groups=(cndb_group*) realloc(file->groups, sizeof(cndb_group)*(file->ngroups));	//effectively appends one entry to array
-		// printf("ngroups %d.\n", file->ngroups);
+		printf("ngroups %d.\n", file->ngroups);
 		groups[file->ngroups-1].pos_dataset_id=pos_dataset_id;
 		groups[file->ngroups-1].species_dataset_id=species_dataset_id;
 		groups[file->ngroups-1].mass_dataset_id=mass_dataset_id;
 		groups[file->ngroups-1].charge_dataset_id=charge_dataset_id;
 		groups[file->ngroups-1].image_dataset_id=image_dataset_id;
 		groups[file->ngroups-1].id_dataset_id=id_dataset_id;
-		// printf("Groups - %d \n", pos_dataset_id);
+		groups[file->ngroups-1].id_time=id_time;
+		printf("Groups - %d \n", pos_dataset_id);
 		/*
 		* Get dataspace handles and then query
 		* dataset rank and dimensions. Since all datasets are checked to be compatible do this only for the first dataset
 		*/
 
+
+		// CNDB ATOMS
 		hid_t dataspace_id = H5Dget_space(pos_dataset_id);	//dataspace handle
 		printf("dataspace_id - %d \n", dataspace_id);
 		int rank_dataset      = H5Sget_simple_extent_ndims(dataspace_id);
@@ -254,15 +281,27 @@ int modify_information_about_file_content(struct cndb_file* file, char* group_na
 		// file->ntime = dims_out[0]; // H5
 		// file->natoms += dims_out[1];
 		
-		file->ntime = i_counter_datasets; ////  CNDB
 		file->natoms = dims_out[0];
 
-		printf("dims_out - time %d and %d.\n", dims_out[0],file->ntime);
+
+
+		// CNDB time
+		hid_t datatime_id = H5Dget_space(id_time);	//dataspace handle
+		printf("datatime_id - %d \n", datatime_id);
+		int rank_dataset_time      = H5Sget_simple_extent_ndims(datatime_id);
+		hsize_t dims_out_time[rank_dataset_time];
+
+		H5Sget_simple_extent_dims(datatime_id, dims_out_time, NULL);
+
+		file->ntime = dims_out_time[0]; ////  CNDB
+
+
+		printf("dims_out - time %d and %d.\n", dims_out_time[0],file->ntime);
 		printf("dims_out - atoms %d and %d.\n", dims_out[0],file->natoms);
 		printf("rank_dataset %d.\n", rank_dataset);
 
 		// groups[file->ngroups-1].nspacedims = dims_out[2];
-		groups[file->ngroups-1].natoms_group=dims_out[1];
+		groups[file->ngroups-1].natoms_group=dims_out[0];
 		groups[file->ngroups-1].group_path=mystrdup(group_name);
 		H5Sclose(dataspace_id);
 
@@ -1416,13 +1455,6 @@ int initialize_cndb_struct(struct cndb_file* file){
 	file->natoms=0;
 	return 0;
 }
-
-// int initialize_cndb_struct(struct cndb_file* file){
-// 	file->nframes=0;
-// 	file->nbeads=0;
-// 	file->ntypes=0;
-// 	return 0;
-// }
 
 
 

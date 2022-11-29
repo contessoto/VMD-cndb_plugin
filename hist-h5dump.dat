@@ -1,0 +1,1000 @@
+ 1022  sudo cp /var/cuda-repo-debian11-11-7-local/cuda-*-keyring.gpg /usr/share/keyrings/
+ 1023  sudo add-apt-repository contrib
+ 1024  sudo apt-get update
+ 1025  sudo apt-get -y install cuda
+ 1026  sudo cp /var/cuda-repo-wsl-ubuntu-11-6-local/*.gpg /usr/share/keyrings/
+ 1027  sudo apt install ./liburcu6*.deb
+ 1028  $ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/3bf863cc.pub
+ 1029  sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/3bf863cc.pub
+ 1030  sudo apt-get update
+ 1031  sudo apt-key list
+ 1032  sudo apt-get update
+ 1033  sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+ 1034  sudo apt-get update
+ 1035  ls
+ 1036  rm cuda-*
+ 1037  wget https://developer.download.nvidia.com/compute/cuda/11.7.1/local_installers/cuda_11.7.1_515.65.01_linux.run
+ 1038  sh cuda_11.7.1_515.65.01_linux.run 
+ 1039  sudo sh cuda_11.7.1_515.65.01_linux.run
+ 1040  cd ..
+ 1041  vmd
+ 1042  cd -
+ 1043  cd /usr/local/lib/vmd/
+ 1044  ls
+ 1045  code .vmdrc 
+ 1046  code .vmdsensors 
+ 1047  cd
+ 1048  cd /mnt/d/DT40/Mitotic-Entry/Movie-Aug-2022/
+ 1049  ls
+ 1050  cd VMD/
+ 1051  ls
+ 1052  tar -xvfz vmd-1.9.4a55.bin.LINUXAMD64-CUDA102-OptiX650-OSPRay185-RTXRTRT.opengl.tar.gz 
+ 1053  tar -xvf vmd-1.9.4a55.bin.LINUXAMD64-CUDA102-OptiX650-OSPRay185-RTXRTRT.opengl.tar.gz 
+ 1054  ls
+ 1055  scp -r vmd-1.9.4a55 Movie/ vc18@aries.rice.edu:~/Movie-DT40
+ 1056  rsync -r vmd-1.9.4a55 Movie/ vc18@aries.rice.edu:~/Movie-DT40
+ 1057  rsync -r vmd-1.9.4a55  vc18@aries.rice.edu:~/Movie-DT40
+ 1058  rsync -r --progress Movie vc18@aries.rice.edu:~/Movie-DT40
+ 1059  ls
+ 1060  rsync -r --progress --ignore-existing Movie/DT40_chr7_Q15m.0* vc18@aries.rice.edu:~/Movie-DT40/
+ 1061  rsync -r --progress --ignore-existing Movie/DT40_chr7_Q15m.0* vc18@aries.rice.edu:~/Movie-DT40/Movie/
+ 1062  rsync -r vmd-1.9.4a55  vc18@nots.rice.edu:/scratch/vc18/
+ 1063  nots
+ 1064  ctbp
+ 1065  exit
+ 1066  cd Mosq/
+ 1067  ls
+ 1068  cd Figures/
+ 1069  ls
+ 1070  /usr/local/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 Mosq_Q.dat -res 3000 2000 -fullshade -auto_skylight 1.2 -format TARGA -o Mosq_Q.eps
+ 1071  /usr/local/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 Mosq_Q.dat -res 1000 1000 -fullshade -auto_skylight 1.2 -format TARGA -o Mosq_Q.eps
+ 1072  /usr/local/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 Mosq_Q.dat -res 1000 1000 -fullshade -auto_skylight 1.2 -format TARGA -o Mosq_Q.tga
+ 1073  /usr/local/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 Mosq_Q.dat -res 2000 1100 -fullshade -auto_skylight 1.2 -format TARGA -o Mosq_Q.tga
+ 1074  history > image_mosq.dat
+ 1075  exit
+ 1076  htop
+ 1077  exit
+ 1078  cd ..
+ 1079  cd Mosq/
+ 1080  la
+ 1081  ls
+ 1082  cd Analysis_Review/
+ 1083  ls
+ 1084  pqs
+ 1085  pwd
+ 1086  ls
+ 1087  cp ../Old/CTBP-machine/Structures-M/change-name.sh .
+ 1088  ls
+ 1089  ./change-name.sh INV-M-C12-5-2.gro 
+ 1090  ls
+ 1091  pwd
+ 1092  htop
+ 1093  pip3 install multiprocessing
+ 1094  htop
+ 1095  which vmd
+ 1096  vmd
+ 1097  C:/Users/vinic/anaconda3/Scripts/activate
+ 1098  conda activate base
+ 1099  rdf 
+ 1100  RDF_mount 
+ 1101  rdf
+ 1102  ls
+ 1103  cd ..
+ 1104  ls
+ 1105  cd RyanCheng/
+ 1106  ls
+ 1107  cd RyanCheng/
+ 1108  ls
+ 1109  RDF_mount 
+ 1110  rdf
+ 1111  cd ../RyanCheng/
+ 1112  ls
+ 1113  cd /mnt/d/Dev/Releases/OpenMiChroM-1.0.1
+ 1114  code hist-pip-openmichrom 
+ 1115  ls
+ 1116  cat README.rst 
+ 1117  ls
+ 1118  code setup.py 
+ 1119  ls tests/
+ 1120  ls dist/
+ 1121  C:/Users/vinic/anaconda3/Scripts/activate
+ 1122  conda activate base
+ 1123  C:/Users/vinic/anaconda3/Scripts/activate
+ 1124  conda activate base
+ 1125  conda activate 
+ 1126  conda activate base
+ 1127  ls
+ 1128  cd ..
+ 1129  cd Mosq/
+ 1130  ls
+ 1131  ls H5-Data-New-Analysis/
+ 1132  ls Human-100kb/
+ 1133  ls
+ 1134  java -jar juicer_tools_1.22.01.jar dump observed Balanced -d mega.hic 1 1 BP 100000 C1_mosq_KR.dense
+ 1135  java -jar juicer_tools_1.22.01.jar dump observed Balanced -d mega.hic 1 1 BP 100000 C1_mosq_KR.dense -h
+ 1136  head mega.hic 
+ 1137  head mega.hic -n 30
+ 1138  head mega.hic -n 50
+ 1139  cat mega.hic 
+ 1140  head mega.hic -n 100
+ 1141  head mega.hic -n 500
+ 1142  java -jar juicer_tools_1.22.01.jar dump observed Balanced -d mega.hic NC_035107.1 NC_035107.1 BP 100000 C1_mosq_KR.dense -h
+ 1143  java -jar juicer_tools_1.22.01.jar dump observed Balanced -d mega.hic NC_035107.1 NC_035107.1 BP 100000 C1_mosq_KR.dense
+ 1144  head -1 C1_mosq_KR.dense 
+ 1145  java -jar juicer_tools_1.22.01.jar dump observed KR -d mega.hic NC_035107.1 NC_035107.1 BP 100000 C1_mosq_KR-KR.dense
+ 1146  head -1 C1_mosq_KR-KR.dense 
+ 1147  rm C1_mosq_KR-KR.dense 
+ 1148  ls
+ 1149  java -jar juicer_tools_1.22.01.jar dump observed KR -d mega.hic NC_035107.1 NC_035107.1 BP 100000 C1_mosq_KR-KR.dense -h
+ 1150  java -jar juicer_tools_1.22.01.jar dump observed NONE -d mega.hic NC_035107.1 NC_035107.1 BP 100000 C1_mosq_NONE.dense 
+ 1151  java -jar juicer_tools_1.22.01.jar dump observed VC -d mega.hic NC_035107.1 NC_035107.1 BP 100000 C1_mosq_VC.dense 
+ 1152  java -jar juicer_tools_1.22.01.jar dump observed VC_SQRT -d mega.hic NC_035107.1 NC_035107.1 BP 100000 C1_mosq_VC_SQRT.dense 
+ 1153  ls
+ 1154  mkdir Analysis_Review/Norms
+ 1155  mv C1_mosq_* Analysis_Review/Norms/
+ 1156  cd Analysis_Review/Norms/
+ 1157  ls
+ 1158  pwd
+ 1159  ls /home/vinicius/Work/Mosq/
+ 1160  ls /home/vinicius/Work/Mosq/Data-HiC/
+ 1161  ls /home/vinicius/Work/Mosq/Old/
+ 1162  ls /home/vinicius/Work/Mosq
+ 1163  ls /home/vinicius/Work/Mosq/Old/
+ 1164  cd ../Mosq/
+ 1165  ls
+ 1166  ls Codes-sub/
+ 1167  ls Data-HiC/
+ 1168  ls Data-HiC/Sca-comp/
+ 1169  ls
+ 1170  ls Drafts-Sub/
+ 1171  ls
+ 1172  cd Old/
+ 1173  ls
+ 1174  cd ..
+ 1175  ls
+ 1176  cd H5-Data-New-Analysis/
+ 1177  pqs
+ 1178  pwd
+ 1179  cd ..
+ 1180  ls
+ 1181  cd Old/
+ 1182  ls
+ 1183  cd ATAC-seq/
+ 1184  ls
+ 1185  ls chr1/
+ 1186  cd ..
+ 1187  ls
+ 1188  wc -l integral_chr1.dat 
+ 1189  head integral_chr1.dat 
+ 1190  pip3 install alignment
+ 1191  ctbp
+ 1192  ls
+ 1193  ctbp
+ 1194  cd ..
+ 1195  cd Mosq/
+ 1196  ls
+ 1197  cd H5-Data-New-Analysis/
+ 1198  ls
+ 1199  pwd
+ 1200  conda install -c anaconda h5py
+ 1201  cd ..
+ 1202  cd Mosq/
+ 1203  ls
+ 1204  cd H5-Data-New-Analysis/
+ 1205  ls
+ 1206  cd Mosq/
+ 1207  ls
+ 1208  cd Analysis_Review/
+ 1209  ls
+ 1210  cd ..
+ 1211  ls
+ 1212  cd Figures/
+ 1213  ls
+ 1214  cd Mitotic/
+ 1215  ls
+ 1216  cd ..
+ 1217  cd DT40/Mitotic-Entry/Movie-Aug-2022/
+ 1218  ls
+ 1219  cd VMD/
+ 1220  ls
+ 1221  cd ..
+ 1222  ls
+ 1223  cd ..
+ 1224  ls
+ 1225  cd ..
+ 1226  ;s
+ 1227  ls
+ 1228  cd ..
+ 1229  ls
+ 1230  cd Mosq/
+ 1231  ls
+ 1232  ls Codes-sub/
+ 1233  ls Analysis_Review/
+ 1234  cd Figures/
+ 1235  ls
+ 1236  vmd vmd_win 
+ 1237  ls
+ 1238  ls Quenched_struc-paper 
+ 1239  head Quenched_struc-paper 
+ 1240  vmd Quenched_struc-paper 
+ 1241  ls
+ 1242  cd Mosq/
+ 1243  ls
+ 1244  cd Analysis_Review/
+ 1245  ls
+ 1246  /usr/local/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 mosq_quench_vmd.dat -res 2000 1100 -fullshade -auto_skylight 1.2 -format TARGA -o Mosq_Q_vmd.tga
+ 1247  /usr/local/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 mosq_quench_vmd_white.dat -res 2000 1100 -fullshade -auto_skylight 1.2 -format TARGA -o Mosq_Q_vmd_white.tga
+ 1248  /usr/local/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 Mosq_Q_vmd_white_chalky.dat -res 2000 1100 -fullshade -auto_skylight 1.2 -format TARGA -o Mosq_Q_vmd_white_chalky.tga
+ 1249  /usr/local/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 Mosq_Q_vmd_colorbar.dat -res 2000 1100 -fullshade -auto_skylight 1.2 -format TARGA -o Mosq_Q_vmd_colorbar.tga
+ 1250  /usr/local/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 Mosq_Q_vmd_colorbar.dat -res 2000 1100 -fullshade -auto_skylight 1.2 -format TARGA -o Mosq_Q_vmd_colorbar.eps
+ 1251  /usr/local/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 Mosq_Q_vmd_colorbar.dat -res 5000 3100 -fullshade -auto_skylight 1.2 -format TARGA -o Mosq_Q_vmd_colorbar.tga
+ 1252  /usr/local/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 Mosq_Q_vmd_state_bendix.vmd -res 2000 1100 -fullshade -auto_skylight 1.2 -format TARGA -o Mosq_Q_vmd_bendix.tga
+ 1253  /usr/local/lib/vmd/tachyon_LINUXAMD64 -aasamples 12 bendix_data_white.dat -res 2000 1100 -fullshade -auto_skylight 1.2 -format TARGA -o Mosq_Q_vmd_bendix.tga
+ 1254  graft
+ 1255  cd Dev/
+ 1256  ls
+ 1257  cd OpenSMOG
+ 1258  ls
+ 1259  cd ..
+ 1260  cd OpenSMOG-old/
+ 1261  ls
+ 1262  cat meta.yaml 
+ 1263  vmd
+ 1264  vmd
+ 1265  ls
+ 1266  cd vmd-1.9.4a55/
+ 1267  ls
+ 1268  cd plugins/
+ 1269  ls
+ 1270  cd LINUXAMD64/
+ 1271  ls
+ 1272  cd molfile/
+ 1273  ls
+ 1274  cd ..
+ 1275  ls
+ 1276  cd ..
+ 1277  ls
+ 1278  cd python/
+ 1279  ls
+ 1280  code VMD.py 
+ 1281  which vmd
+ 1282  /usr/local/bin/vmd --version
+ 1283  cd ..
+ 1284  cd
+ 1285  vmd
+ 1286  ls
+ 1287  which vmd
+ 1288  /usr/local/bin/vmd
+ 1289  /usr/local/lib/vmd/plugins/LINUXAMD64/molfile
+ 1290  cd /usr/local/lib/vmd/plugins/LINUXAMD64/molfile
+ 1291  ls
+ 1292  cat xyzplugin.so 
+ 1293  ls
+ 1294  ./xyzplugin.so 
+ 1295  ls
+ 1296  cd ..
+ 1297  ls
+ 1298  cd tcl/
+ 1299  ls
+ 1300  cd ../bin/
+ 1301  ls
+ 1302  ls catdcd5.2/
+ 1303  cd ..
+ 1304  ls
+ 1305  cd molfile/
+ 1306  ls
+ 1307  cd ..
+ 1308  ls
+ 1309  ls include/
+ 1310  ls LINUXAMD64/
+ 1311  ls noarch/
+ 1312  cd LINUXAMD64/
+ 1313  ls
+ 1314  cd molfile/
+ 1315  ls
+ 1316  vmd
+ 1317  ls
+ 1318  vmd
+ 1319  ls
+ 1320  code ~/.vmdrc
+ 1321  ls
+ 1322  ls .vmdrc
+ 1323  ls ~/.vmdrc
+ 1324  code ~/.vmdrc
+ 1325  ls
+ 1326  tar -xfzv vmd-1.9.4a57.src.tar.gz 
+ 1327  tar -xf vmd-1.9.4a57.src.tar.gz 
+ 1328  tar -xvf vmd-1.9.4a57.src.tar.gz 
+ 1329  ls
+ 1330  cd vmd-1.9.4a5
+ 1331  cd vmd-1.9.4a57
+ 1332  ls
+ 1333  cd ..
+ 1334  cd
+ 1335  ls
+ 1336  cd Work
+ 1337  ls
+ 1338  cd DT40/
+ 1339  ls
+ 1340  cd Mitotic-Entry/\
+ 1341  cd Mitotic-Entry/
+ 1342  ls
+ 1343  cp quench_DT40_15m/traj_15m_0.cndb traj_15m.h5
+ 1344  cd ..
+ 1345  ls
+ 1346  cd cd VMD-dev/
+ 1347  ls
+ 1348  cd VMD-dev/
+ 1349  ls
+ 1350  cd VMD-h5mdplugin-1.4
+ 1351  ls
+ 1352  cd VMD-h5mdplugin-1.4/
+ 1353  ls
+ 1354  cat Makefile 
+ 1355  make
+ 1356  sudo make
+ 1357  cmake && make
+ 1358  sudo apt-get install cmake make
+ 1359  cmake && make
+ 1360  sudo cmake && make
+ 1361  sudo apt-get install clang
+ 1362  cmake && make
+ 1363  sudo cmake && make
+ 1364  sudo apt-get install hdf5
+ 1365  apt-cache search hdf5
+ 1366  sudo apt-get install libhdf5-serial-dev
+ 1367  sudo cmake && make
+ 1368  cmake && make
+ 1369  sudo apt-get install libhdf5-10
+ 1370  sudo apt-get install libhdf5-serial-dev
+ 1371  sudo apt-get install libhdf5-dev
+ 1372  sudo apt-get install libhdf5-cpp-11
+ 1373  sudo apt-get install libhdf5
+ 1374  cmake && make
+ 1375  make
+ 1376  cmake
+ 1377  sudo make
+ 1378  make clean
+ 1379  make
+ 1380  find /usr -iname "*hdf5.h*"
+ 1381  export CPATH="/usr/include/hdf5/serial/"
+ 1382  make
+ 1383  cmake
+ 1384  make clean
+ 1385  make 
+ 1386  sudo apt-get install c++ 
+ 1387  sudo apt-get install c
+ 1388  sudo apt-get install g++
+ 1389  make 
+ 1390  sudo apt-get install lhdf5
+ 1391  h5cc 
+ 1392  export CPATH="/usr/include"
+ 1393  make 
+ 1394  make clean
+ 1395  make 
+ 1396  export CPATH="/usr/include/hdf5/serial/"
+ 1397  make clean
+ 1398  make 
+ 1399  make -v
+ 1400  make clean
+ 1401  make 
+ 1402  sudo apt-get install libhdf5-dev
+ 1403  make clean
+ 1404  make 
+ 1405  find /usr -iname "*lhdf5*"
+ 1406  sudo ln -s libhdf5_serial.so.8.0.2 libhdf5.so
+ 1407  sudo ln -s libhdf5_serial_hl.so.8.0.2 libhdf5_hl.so
+ 1408  make 
+ 1409  make clean
+ 1410  make 
+ 1411  make clean
+ 1412  ls
+ 1413  code Makefile 
+ 1414  make clean
+ 1415  make
+ 1416  ls
+ 1417  rm libhdf5*
+ 1418  ls
+ 1419  make clean
+ 1420  ls
+ 1421  ls tests/
+ 1422  ls cmake/
+ 1423  ls
+ 1424  clear
+ 1425  find /usr -iname "*hdf5*"
+ 1426  make clean
+ 1427  make
+ 1428  make clean
+ 1429  make
+ 1430  make clean
+ 1431  make
+ 1432  find /usr -iname "*hdf5*"
+ 1433  make clean
+ 1434  find /usr -iname "*hdf5*"
+ 1435  make
+ 1436  ls
+ 1437  sudo ln -s /usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5_hl.so libhdf5_hl.so
+ 1438  sudo ln -s /usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so libhdf5.so
+ 1439  ls
+ 1440  make clean
+ 1441  make
+ 1442  make install
+ 1443  sudo make install
+ 1444  make clean
+ 1445  make
+ 1446  make install
+ 1447  ls
+ 1448  make clean
+ 1449  ls
+ 1450  cmake && make
+ 1451  make install
+ 1452  code ~/.vmdrc
+ 1453  pwd
+ 1454  ls
+ 1455  cd vmd-1.9.4a55/
+ 1456  ls
+ 1457  code README 
+ 1458  cd doc/
+ 1459  ls
+ 1460  cd ..
+ 1461  ls
+ 1462  cd scripts/
+ 1463  ls
+ 1464  cd vmd/
+ 1465  ls
+ 1466  code loadplugins.tcl 
+ 1467  cd ..
+ 1468  ls
+ 1469  cd CVS/
+ 1470  ls
+ 1471  cd ..
+ 1472  ls
+ 1473  cd distrib/
+ 1474  ls
+ 1475  cd ..
+ 1476  ls
+ 1477  cd src/
+ 1478  ls
+ 1479  cat Make
+ 1480  cat Makefile 
+ 1481  ls
+ 1482  cd ..
+ 1483  ls
+ 1484  rm cuda_11.7.1_515.65.01_linux.run 
+ 1485  ls
+ 1486  cd ..
+ 1487  ls
+ 1488  cd vmd-1.9.4a55/
+ 1489  ls
+ 1490  ls bin/
+ 1491  cd bin/
+ 1492  ls
+ 1493  cat vmd.sh 
+ 1494  ls
+ 1495  cd ..
+ 1496  ls
+ 1497  cd plugins/
+ 1498  ls
+ 1499  cd LINUXAMD64/
+ 1500  ls
+ 1501  ls bin/
+ 1502  ls molfile/
+ 1503  ls tcl/
+ 1504  C:/Users/vinic/anaconda3/Scripts/activate
+ 1505  conda activate base
+ 1506  ls
+ 1507  cd ..
+ 1508  ls
+ 1509  cd DT40/
+ 1510  ls
+ 1511  cd Mitotic-Entry/
+ 1512  ls
+ 1513  pwd
+ 1514  mv traj_15m.h5 traj_15m.cndb
+ 1515  cd ..
+ 1516  cd
+ 1517  cd ../Dev/VMD-cndb_plugin/
+ 1518  ls
+ 1519  cd samples/
+ 1520  ls
+ 1521  pwd
+ 1522  vmd
+ 1523  vmd'
+ 1524  vmd
+ 1525  ls
+ 1526  cd VMD-dev/
+ 1527  ls
+ 1528  cd VMD-h5mdplugin-1.4
+ 1529  ls
+ 1530  cd VMD-h5mdplugin-1.4/
+ 1531  ls
+ 1532  ./h5mdtest
+ 1533  ./h5mdtest h5 ../../../full_vmd_structure.h5 
+ 1534  ./h5mdtest ../../../full_vmd_structure.h5 
+ 1535  ./h5mdtest h5 ../../../full_vmd_structure.h5 
+ 1536  ./h5mdtest .h5 ../../../full_vmd_structure.h5 
+ 1537  ./h5mdtest h5 ../../../full_vmd_structure.h5 
+ 1538  ./h5mdtest h5md ../../../full_vmd_structure.h5 
+ 1539  cd
+ 1540  cd Work
+ 1541  ls
+ 1542  cd Dev/
+ 1543  ls
+ 1544  cd ..
+ 1545  cd VMD-dev/
+ 1546  ls
+ 1547  tar -xfv hdf5-1.12.2.tar 
+ 1548  tar -xvf hdf5-1.12.2.tar 
+ 1549  ls
+ 1550  cd hdf5-1.12.2
+ 1551  ls
+ 1552  ./configure --prefix=/usr/local --enable-cxx --enable-production
+ 1553  ./configure --prefix=/usr/local --enable-cxx --enable-build-mode=producti
+ 1554  code configure
+ 1555  make -j 16
+ 1556  make install
+ 1557  sudo make install
+ 1558  make check-install
+ 1559  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1560  ls
+ 1561  cd ..
+ 1562  cd
+ 1563  cd Work/Dev/VMD-cndb_plugin/
+ 1564  ls
+ 1565  make clean
+ 1566  make clean && make && ./vini_cndb_runtest
+ 1567  make clean && make && ./cndbtest
+ 1568  make clean && make && ./cndbtest samples/full_vmd_structure.h5 
+ 1569  make clean && make && ./cndbtest h5 samples/full_vmd_structure.h5 
+ 1570  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1571  make clean && make && ./cndbtest h5 samples/full_vmd_structure.h5 
+ 1572  mv samples/full_vmd_structure.h5 samples/full_vmd_structure.cndb
+ 1573  cp samples/full_vmd_structure.cndb samples/full_vmd_structure.h5
+ 1574  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1575  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1576  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1577  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1578  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1579  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1580  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1581  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1582  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1583  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1584  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1585  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1586  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1587  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1588  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1589  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1590  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1591  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1592  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1593  cp Attributes.h5 Attributes.cndb
+ 1594  make clean && make && ./cndbtest cndb Attributes.cndb 
+ 1595  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1596  make clean && make && ./cndbtest cndb Attributes.cndb 
+ 1597  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1598  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1599  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1600  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1601  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1602  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1603  ake clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1604  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1605  ake clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1606  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1607  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1608  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1609  A
+ 1610  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1611  make clean && make && ./cndbtest cndb samples/traj_15m.cndb | 
+ 1612  ls
+ 1613  make clean && make && ./cndbtest cndb samples/traj_0.cndb | head
+ 1614  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1615  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1616  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1617  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1618  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1619  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1620  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1621  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1622  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1623  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1624  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1625  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1626  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1627  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1628  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1629  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1630  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1631  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1632  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1633  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1634  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1635  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1636  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1637  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1638  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1639  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1640  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1641  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1642  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1643  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1644  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1645  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1646  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1647  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1648  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1649  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1650  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1651  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1652  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1653  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1654  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1655  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1656  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1657  ake clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1658  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1659  make clean && make && ./cndbtest cndb samples/full_vmd_structure.cndb
+ 1660  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1661  htop
+ 1662  ls
+ 1663  cd DT40/Mitotic-Entry/
+ 1664  ls
+ 1665  cd old/
+ 1666  ls
+ 1667  cd ..
+ 1668  ls
+ 1669  cd DT40-min/
+ 1670  ls
+ 1671  cd 0m-IC
+ 1672  ls
+ 1673  cd ..
+ 1674  ls
+ 1675  cd Sampling-test-fit/
+ 1676  ls
+ 1677  cd 1/
+ 1678  ls
+ 1679  cd o
+ 1680  cd output_files/
+ 1681  ls
+ 1682  du -sh traj_0.cndb 
+ 1683  cd ..
+ 1684  ls
+ 1685  cd ..
+ 1686  ls
+ 1687  vim runall.sh 
+ 1688  vim RunOpenMiChroM.py 
+ 1689  ./runall.sh 2
+ 1690  conda activate openmm
+ 1691  ./runall.sh 2
+ 1692  ls
+ 1693  cd 2/
+ 1694  ls
+ 1695  cd o
+ 1696  cd output_files/
+ 1697  ls
+ 1698  du -sh traj_0.cndb 
+ 1699  pwd
+ 1700  conda -env list
+ 1701  conda env -list
+ 1702  conda env list
+ 1703  conda env openmm
+ 1704  conda activate openmm
+ 1705  conda update
+ 1706  conda update conda
+ 1707  conda update openmichrom
+ 1708  conda remove openmichrom
+ 1709  conda install openmichrom
+ 1710  conda install openmichrom --upgrade
+ 1711  conda install openmichrom --update
+ 1712  conda install -c conda-forge OpenMiChroM
+ 1713  ls
+ 1714  cd Dev/VMD-cndb_plugin/
+ 1715  ls
+ 1716  make clean && make && ./cndbtest cndb samples/traj_15m.cndb
+ 1717  conda deactivate
+ 1718  make clean && make && ./cndbtest cndb samples/traj_15m.cndb
+ 1719  apt-get install libhdf5-dev
+ 1720  sudo apt-get install libhdf5-dev
+ 1721  make clean && make && ./cndbtest cndb samples/traj_15m.cndb
+ 1722  h5dump SDScompound.h5 
+ 1723  h5dump samples/traj_15m.cndb 
+ 1724  h5dump SDScompound.h5 
+ 1725  h5dump samples/traj_15m.cndb | head
+ 1726  h5dump SDScompound.h5 -H
+ 1727  h5dump SDScompound.h5 --header
+ 1728  h5dump -d SDScompound.h5
+ 1729  h5dump -d 1 -H samples/traj_15m.cndb | head
+ 1730  h5dump -d 10 -H samples/traj_15m.cndb | head
+ 1731  h5dump -d 10 -H samples/traj_15m.cndb
+ 1732  h5dump -d 10 -H samples/full_vmd_structure.h5 
+ 1733  h5dump -H samples/full_vmd_structure.h5 
+ 1734  h5dump -H samples/traj_15m.cndb
+ 1735  h5dump -H samples/full_vmd_structure.h5 
+ 1736  h5dump -H samples/traj_15m.cndb
+ 1737  h5dump -H samples/traj_15m.cndb | head
+ 1738  h5dump -H samples/full_vmd_structure.h5 | hea
+ 1739  h5dump -H samples/full_vmd_structure.h5 | head
+ 1740  h5dump -H samples/full_vmd_structure.h5
+ 1741  h5dump samples/full_vmd_structure.h5
+ 1742  h5dump -H samples/full_vmd_structure.h5
+ 1743  h5dump -H samples/traj_15m.cndb
+ 1744  h5dump -H samples/traj_15m.cndb | head
+ 1745  h5dump -H samples/full_vmd_structure.h5 | head
+ 1746  h5dump -H samples/full_vmd_structure.h5
+ 1747  h5dump -H Attributes.h5 
+ 1748  h5dump  Attributes.h5 
+ 1749  h5dump -H samples/traj_15m.cndb | head
+ 1750  h5dump -H samples/full_vmd_structure.h5
+ 1751  h5dump -H samples/traj_15m.cndb | head
+ 1752  du -sh samples/traj_15m.cndb 
+ 1753  cp /mnt/d/DT40/Mitotic-Entry/DT40-min/Sampling-test-fit/2/output_files/traj_0.cndb samples/
+ 1754  h5dump -H samples/traj_0.cndb | head
+ 1755  h5dump samples/full_vmd_structure.h5
+ 1756  h5dump -H samples/traj_0.cndb | head
+ 1757  h5dump -H samples/traj_0.cndb
+ 1758  h5dump samples/full_vmd_structure.h5
+ 1759  h5dump -H samples/traj_0.cndb
+ 1760  h5dump samples/full_vmd_structure.h5
+ 1761  h5dump -H samples/full_vmd_structure.h5
+ 1762  h5dump samples/full_vmd_structure.h5
+ 1763  h5dump samples/full_vmd_structure.h5 | head -n 200
+ 1764  h5dump samples/full_vmd_structure.h5 | head -n 300
+ 1765  h5dump samples/full_vmd_structure.h5 | head -n 400
+ 1766  conda activate openmm
+ 1767  ls
+ 1768  ls cmake/
+ 1769  ls
+ 1770  make
+ 1771  /home/vinicius/anaconda3/envs/openmm/bin/h5cc
+ 1772  make clean
+ 1773  ls
+ 1774  sudo make clean
+ 1775  ls
+ 1776  make
+ 1777  make clean
+ 1778  make
+ 1779  cmake
+ 1780  cmake && make
+ 1781  make clean
+ 1782  conda deactivate
+ 1783  make 
+ 1784  conda install gxx_linux-64
+ 1785  make 
+ 1786  ls
+ 1787  ./cndbtest
+ 1788  ls
+ 1789  cp ../../DT40/Mitotic-Entry/traj_15m.cndb tests/
+ 1790  ls
+ 1791  mv tests/traj_15m.cndb samples/
+ 1792  ls
+ 1793  ./cndbtest cndb samples/traj_15m.cndb 
+ 1794  make clean
+ 1795  cp ../../vmd-1.9.4a57/src/MolFilePlugin.* .
+ 1796  ls
+ 1797  make 
+ 1798  make clean
+ 1799  make
+ 1800  make clean
+ 1801  make
+ 1802  ./cndbtest cndb samples/traj_15m.cndb 
+ 1803  make clean && make && ./cndbtest cndb samples/traj_15m.cndb 
+ 1804  clear
+ 1805  h5cc vini_cndb_runtest.c 
+ 1806  h5cc -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1807  which h5cc
+ 1808  /usr/local/bin/h5c++
+ 1809  clear
+ 1810  /usr/local/bin/h5c++
+ 1811  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1812  ./vini_cndb_runtest
+ 1813  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1814  /usr/local/bin/h5cc -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1815  h5cc -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1816  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1817  ls
+ 1818  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1819  ./vini_cndb_runtest
+ 1820  ls
+ 1821  cp vini_cndb_runtest.c vini_cndb_runtest_bkp.c 
+ 1822  ls samples/full_vmd_structure.h5 
+ 1823  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1824  ls
+ 1825  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1826  ./vini_cndb_runtest
+ 1827  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1828  ./vini_cndb_runtest
+ 1829  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1830  ./vini_cndb_runtest
+ 1831  /usr/local/bin/h5cc -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1832  ./vini_cndb_runtest
+ 1833  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1834  ./vini_cndb_runtest
+ 1835  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1836  ./vini_cndb_runtest
+ 1837  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1838  ./vini_cndb_runtest
+ 1839  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1840  ./vini_cndb_runtest
+ 1841  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1842  ./vini_cndb_runtest
+ 1843  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1844  ./vini_cndb_runtest
+ 1845  c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1846  c++ vini_cndb_runtest.c -o vini_cndb_runtest
+ 1847  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1848  c++ vini_cndb_runtest.c -o vini_cndb_runtest
+ 1849  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1850  ./vini_cndb_runtest
+ 1851  c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1852  c++ vini_cndb_runtest.c -o vini_cndb_runtest
+ 1853  ./vini_cndb_runtest
+ 1854  g++ vini_cndb_runtest.c -o vini_cndb_runtest
+ 1855  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1856  ./vini_cndb_runtest
+ 1857  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1858  ./vini_cndb_runtest
+ 1859  ls
+ 1860  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1861  ./vini_cndb_runtest
+ 1862  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1863  ./vini_cndb_runtest
+ 1864  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1865  ./vini_cndb_runtest
+ 1866  ls
+ 1867  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1868  ./vini_cndb_runtest
+ 1869  /usr/local/bin/h5cc -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1870  ./vini_cndb_runtest
+ 1871  g++ vini_cndb_runtest.c -o vini_cndb_runtest
+ 1872  c++ vini_cndb_runtest.c -o vini_cndb_runtest
+ 1873  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1874  ./vini_cndb_runtest
+ 1875  ls
+ 1876  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1877  ./vini_cndb_runtest
+ 1878  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1879  ./vini_cndb_runtest
+ 1880  ls
+ 1881  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 1882  ./vini_cndb_runtest
+ 1883  cd Dev/VMD-cndb_plugin/
+ 1884  ls
+ 1885  h5dump samples/full_vmd_structure.h5 | head -n 400
+ 1886  cd Dev/VMD-cndb_plugin/
+ 1887  ls
+ 1888  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1889  ake clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1890  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1891  cd Dev/
+ 1892  ls
+ 1893  cd VMD-cndb_plugin/
+ 1894  ls
+ 1895  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1896  ctbp
+ 1897  cd Dev/
+ 1898  ls
+ 1899  cd VMD-cndb_plugin/
+ 1900  ls
+ 1901  cd Dev/VMD-cndb_plugin/
+ 1902  make clean && make && ./cndbtest cndb samples/traj_0.cndb
+ 1903  sudo apt-get remove docker docker-engine docker.io containerd runc
+ 1904  sudo apt-get update
+ 1905  sudo code /etc/apt/sources.list
+ 1906  sudo vim /etc/apt/sources.list
+ 1907  sudo apt-get clean
+ 1908  sudo rm -rf /var/lib/apt/lists
+ 1909  udo mkdir /var/lib/apt/lists
+ 1910  sudo mkdir /var/lib/apt/lists
+ 1911  sudo apt-get clean
+ 1912  sudo apt-get update
+ 1913  sudo apt-key del F60F4B3D7FA2AF80
+ 1914  sudo apt-get update
+ 1915  sudo apt-key del F60F4B3D7FA2AF80
+ 1916  sudo apt-get update
+ 1917  sudo apt-get clean
+ 1918  sudo apt-get update
+ 1919  curl -sL "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF60F4B3D7FA2AF80" | sudo apt-key add -
+ 1920  sudo apt-get update
+ 1921  sudo apt-key del F60F4B3D7FA2AF80
+ 1922  sudo apt-get update
+ 1923  curl -sL "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF60F4B3D7FA2AF80" | sudo apt-key add -
+ 1924  sudo apt-get update
+ 1925  sudo apt-get install     ca-certificates     curl     gnupg     lsb-release
+ 1926  sudo mkdir -p /etc/apt/keyrings
+ 1927  curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+ 1928  echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+ 1929    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+ 1930  sudo apt-get update
+ 1931  sudo chmod a+r /etc/apt/keyrings/docker.gpg
+ 1932  sudo apt-get update
+ 1933  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+ 1934  sudo docker run hello-world
+ 1935  docker
+ 1936  docker run hello-world
+ 1937  systemctl start docker
+ 1938  sudo dockerd
+ 1939  sudo service --status-all
+ 1940  sudo service docker start
+ 1941  ls
+ 1942  sudo docker run hello-world
+ 1943  ls
+ 1944  mkdir Docker
+ 1945  history > hist-install-docker.dat
+ 1946  docker pull smogserver/smogopensmog:s2.4.4-os1.1
+ 1947  sudo docker pull smogserver/smogopensmog:s2.4.4-os1.1
+ 1948  ls
+ 1949  mv hist-install-docker.dat Docker/
+ 1950  ls
+ 1951  cd ..
+ 1952  ls
+ 1953  cd ..
+ 1954  ls
+ 1955  cd
+ 1956  ls
+ 1957  cd Work
+ 1958  ls
+ 1959  cd Docker/
+ 1960  ls
+ 1961  sudo docker run smogserver/smogopensmog:s2.4.4-os1.1
+ 1962  ls
+ 1963  sudo docker run docker.io/smogserver/smogopensmog:s2.4.4-os1.1
+ 1964  cd ..
+ 1965  ls
+ 1966  locate smogserver/smogopensmog:s2.4.4-os1.1
+ 1967  find smogserver/smogopensmog:s2.4.4-os1.1
+ 1968  find / smogserver/smogopensmog:s2.4.4-os1.1
+ 1969  find /smogserver/smogopensmog:s2.4.4-os1.1
+ 1970  ls
+ 1971  docker images
+ 1972  sudo docker images
+ 1973  sudo docker run smogserver/smogopensmog
+ 1974  sudo docker run smogserver/smogopensmog:s2.4.4-os1.1
+ 1975  smog2.4_env 
+ 1976  conda deactivate
+ 1977  ls
+ 1978  sudo docker run smogserver/smogopensmog:s2.4.4-os1.1
+ 1979  smog2
+ 1980  sudo docker ps
+ 1981  docker ps
+ 1982  sudo groupadd docker
+ 1983  sudo usermod -aG docker ${USER}
+ 1984  docker ps
+ 1985  su -s ${USER}
+ 1986  sudo su -s ${USER}
+ 1987  docker ps
+ 1988  su -s ${USER}
+ 1989  passwd
+ 1990  su -s ${USER}
+ 1991  cd Docker/
+ 1992  history > hist-install-docker.dat
+ 1993  docker
+ 1994  docker images
+ 1995  docker run smogserver/smogopensmog
+ 1996  docker run smogserver/smogopensmog:s2.4.4-os1.1
+ 1997  docker run smogserver/smogopensmog:s2.4.4-os1.1 smog2
+ 1998  penguin 
+ 1999  C:/Users/vinic/anaconda3/Scripts/activate
+ 2000  conda activate base
+ 2001  cd Dev/
+ 2002  ls
+ 2003  cd VMD-cndb_plugin/
+ 2004  ls
+ 2005  /usr/local/bin/h5c++ -shlib vini_cndb_runtest.c -o vini_cndb_runtest
+ 2006  ./vini_cndb_runtest
+ 2007  h5dump 
+ 2008  ls
+ 2009  cd samples/
+ 2010  h5dump multichain_C1C2.cndb 
+ 2011  h5dump -h multichain_C1C2.cndb 
+ 2012  h5dump -H multichain_C1C2.cndb 
+ 2013  h5dump -H multichain_C1C2.cndb -h
+ 2014  h5dump -h multichain_C1C2.cndb
+ 2015  h5dump -H multichain_C1C2.cndb | head -n 20
+ 2016  h5dump -H multichain_C1C2.cndb | head -n 30
+ 2017  h5dump -H multichain_C1C2.cndb | tail -n 30
+ 2018  h5dump -H multichain_C1C2.cndb | tail -n 100
+ 2019  h5dump -H multichain_C1C2.cndb | head -n 30
+ 2020  h5dump -H multichain_C1C2.cndb | tail -n 100
+ 2021  history > ../hist-h5dump.dat 

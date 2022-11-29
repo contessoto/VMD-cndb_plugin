@@ -86,7 +86,6 @@ static int read_cndb_timestep(void *_file, int natoms, molfile_timestep_t *ts) {
 	int current_time;
 
 
-
 	cndb_get_current_time(file,&current_time);
 
 	printf("current_time %d \n", current_time);
